@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
 import { CiSquarePlus } from 'react-icons/ci';
+import { FaRegCheckCircle } from "react-icons/fa";
+import { IoMdCloseCircleOutline } from "react-icons/io";
 import axiosInstance from '../../Global/Axios/AxiosInstance';
 
 const AddCommitte = () => {
     const [selectedFile, setSelectedFile] = useState(null);
+    const [successMessage, setSucsessMessage] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
 
     const handleFileChange = (e) => {
         const file = e.target.files[0];
@@ -36,9 +40,20 @@ const AddCommitte = () => {
 
             const response = await axiosInstance.post('/postcommittee', committee);
             console.log(response.data);
+            setSucsessMessage('Committee Added Succesfully!')
+            setErrorMessage('')
             event.target.reset();
+            setTimeout(() => {
+                setSucsessMessage('')
+            }, 3000)
         } catch (error) {
             console.error('Error adding Committee:', error);
+            setErrorMessage('Failed to add Committee. Please try again.');
+            setSucsessMessage('');
+
+            setTimeout(() => {
+                setErrorMessage('');
+            }, 3000);
         }
     };
     return (
@@ -46,6 +61,19 @@ const AddCommitte = () => {
             <div>
                 <h1 className='text-3xl font-extrabold text-gray-700 text-center mb-5 uppercase'>Add Committee</h1>
             </div>
+            {successMessage &&
+                <div className="notification text-xl font-semibold text-green-500 bg-white w-96 h-20 flex justify-center items-center shadow-lg absolute bottom-5 border-[3px] border-green-300 tracking-wider rounded-lg z-30">
+                    <div className='flex items-center'>
+                        <FaRegCheckCircle className='mr-3 text-4xl' /> {successMessage}
+                    </div>
+                </div>
+            }
+            {errorMessage && <div className="notification text-xl font-semibold text-red-500 bg-white w-96 h-20 flex justify-center items-center shadow-lg absolute bottom-5 border-[3px] border-red-300 tracking-wider rounded-lg z-30">
+                <div className='flex items-center'>
+                    <IoMdCloseCircleOutline className='mr-3 text-4xl' /> {errorMessage}
+                </div>
+            </div>
+            }
             <form onSubmit={handleAddCommittee} action="" className='admin bg-white w-96 mx-auto p-4 shadow-xl rounded'>
 
                 <div className='grid grid-cols-1 md:grid-cols-1 gap-5'>
