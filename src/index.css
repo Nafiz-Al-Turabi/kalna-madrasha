@@ -99,3 +99,18 @@ button:focus-visible {
   transition: 0.2s ease-in-out;
   transform: translateY(-5px);
 }
+
+.notification{
+  animation: fade-up .8s cubic-bezier(0,.84,.01,1.4) forwards;
+  opacity: 0;
+}
+@keyframes fade-up{
+  0%{
+      opacity: 0;
+      transform: translateX(-10rem) scale(.8);
+  }
+  100%{
+      opacity: 1;
+      transform: none;
+  }
+}
