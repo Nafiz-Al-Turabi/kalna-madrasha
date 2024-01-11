@@ -75,7 +75,7 @@ button:focus-visible {
 
 /* Admin Form css */
 .admin{
-  animation: fade-pop-up 0.8s .2s cubic-bezier(0,.84,.01,1.4) forwards;
+  animation: fade-pop-up .8s .2s cubic-bezier(0,.84,.01,1.4) forwards;
   opacity: 0;
 }
 
