@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './AddTeacher.css'
 import { CiSquarePlus } from 'react-icons/ci';
+import axiosInstance from '../../Global/Axios/AxiosInstance';
 
 const AddTeacher = () => {
     const [selectedFile, setSelectedFile] = useState(null);
@@ -9,12 +10,45 @@ const AddTeacher = () => {
         const file = e.target.files[0];
         setSelectedFile(file);
     };
+    const handleAddteacher = async (event) => {
+        event.preventDefault();
+        const form = event.target;
+        const name = form.name.value;
+        const designation = form.designation.value;
+        const email=form.email.value;
+        const rawNumber = form.number.value;
+        const number = `+88${rawNumber.replace(/\D/g, '')}`;
+
+        try {
+            // Upload image to imgBB
+            const imgBBApiKey = 'db2fb6a976b720d2a464ebe2917eb735';
+            const imgFormData = new FormData();
+            imgFormData.append('image', selectedFile);
+
+            const imgBBResponse = await fetch('https://api.imgbb.com/1/upload?key=' + imgBBApiKey, {
+                method: 'POST',
+                body: imgFormData,
+            });
+
+            const imgBBData = await imgBBResponse.json();
+            const imageUrl = imgBBData.data.url;
+
+            // Store teacher data in the database
+            const teacher = { name, designation, email, number, imageUrl };
+
+            const response = await axiosInstance.post('/postteacher', teacher);
+            console.log(response.data);
+            event.target.reset();
+        } catch (error) {
+            console.error('Error adding teacher:', error);
+        }
+    };
     return (
         <div>
             <div>
                 <h1 className='text-3xl font-extrabold text-gray-700 text-center mb-5 uppercase'>Add Teacher</h1>
             </div>
-            <form action="" className='admin bg-white p-4 shadow-xl rounded'>
+            <form onSubmit={handleAddteacher} action="" className='admin bg-white p-4 shadow-xl rounded'>
 
                 <div className='grid grid-cols-1 md:grid-cols-2 gap-5'>
                     <div className="relative  border-dashed border-2 border-gray-300 bg-gray-50 rounded-md p-6 group">
@@ -55,7 +89,7 @@ const AddTeacher = () => {
                             <input className='admin-input w-full text-xl text-gray-500 shadow-inner p-3 bg-gray-100 focus:outline-none placeholder:text-base rounded ' type="text" name='email' placeholder="Enter Teacher's Email" />
                         </div>
                         <div>
-                            <input className='admin-input w-full text-xl text-gray-500 shadow-inner p-3 bg-gray-100 focus:outline-none placeholder:text-base rounded ' type="text" name='nummber' placeholder="Enter Teacher's Number" />
+                            <input className='admin-input w-full text-xl text-gray-500 shadow-inner p-3 bg-gray-100 focus:outline-none placeholder:text-base rounded ' type="text" name='number' placeholder="Enter Teacher's Number" />
                         </div>
                     </div>
                 </div>

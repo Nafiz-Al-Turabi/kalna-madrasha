@@ -37,6 +37,7 @@ const AddStudent = () => {
 
             const response = await axiosInstance.post('/poststudent', student);
             console.log(response.data);
+            event.target.reset();
         } catch (error) {
             console.error('Error adding student:', error);
         }

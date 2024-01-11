@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { CiSquarePlus } from 'react-icons/ci';
+import axiosInstance from '../../Global/Axios/AxiosInstance';
 
 const AddCommitte = () => {
     const [selectedFile, setSelectedFile] = useState(null);
@@ -8,12 +9,44 @@ const AddCommitte = () => {
         const file = e.target.files[0];
         setSelectedFile(file);
     };
+    const handleAddCommittee = async (event) => {
+        event.preventDefault();
+        const form = event.target;
+        const name = form.name.value;
+        const designation = form.designation.value;
+        const rawNumber = form.number.value;
+        const number = `+88${rawNumber.replace(/\D/g, '')}`;
+
+        try {
+            // Upload image to imgBB
+            const imgBBApiKey = 'db2fb6a976b720d2a464ebe2917eb735';
+            const imgFormData = new FormData();
+            imgFormData.append('image', selectedFile);
+
+            const imgBBResponse = await fetch('https://api.imgbb.com/1/upload?key=' + imgBBApiKey, {
+                method: 'POST',
+                body: imgFormData,
+            });
+
+            const imgBBData = await imgBBResponse.json();
+            const imageUrl = imgBBData.data.url;
+
+            // Store Committee data in the database
+            const committee = { name, designation, number, imageUrl };
+
+            const response = await axiosInstance.post('/postcommittee', committee);
+            console.log(response.data);
+            event.target.reset();
+        } catch (error) {
+            console.error('Error adding Committee:', error);
+        }
+    };
     return (
         <div>
             <div>
                 <h1 className='text-3xl font-extrabold text-gray-700 text-center mb-5 uppercase'>Add Committee</h1>
             </div>
-            <form action="" className='admin bg-white w-96 mx-auto p-4 shadow-xl rounded'>
+            <form onSubmit={handleAddCommittee} action="" className='admin bg-white w-96 mx-auto p-4 shadow-xl rounded'>
 
                 <div className='grid grid-cols-1 md:grid-cols-1 gap-5'>
                     <div className="relative border-dashed border-2 border-gray-300 bg-gray-50 rounded-md p-6 group">
