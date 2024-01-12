@@ -20,25 +20,19 @@ const AddCommitte = () => {
         const designation = form.designation.value;
         const rawNumber = form.number.value;
         const number = `+88${rawNumber.replace(/\D/g, '')}`;
+        const formData = new FormData();
+
+        formData.append('name', name);
+        formData.append('designation', designation);
+        formData.append('number', number);
+        formData.append('image', selectedFile);
 
         try {
-            // Upload image to imgBB
-            const imgBBApiKey = 'db2fb6a976b720d2a464ebe2917eb735';
-            const imgFormData = new FormData();
-            imgFormData.append('image', selectedFile);
-
-            const imgBBResponse = await fetch('https://api.imgbb.com/1/upload?key=' + imgBBApiKey, {
-                method: 'POST',
-                body: imgFormData,
+            const response = await axiosInstance.post('/postcommittee', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
             });
-
-            const imgBBData = await imgBBResponse.json();
-            const imageUrl = imgBBData.data.url;
-
-            // Store Committee data in the database
-            const committee = { name, designation, number, imageUrl };
-
-            const response = await axiosInstance.post('/postcommittee', committee);
             console.log(response.data);
             setSucsessMessage('Committee Added Succesfully!')
             setErrorMessage('')
@@ -79,7 +73,9 @@ const AddCommitte = () => {
                 <div className='grid grid-cols-1 md:grid-cols-1 gap-5'>
                     <div className="relative border-dashed border-2 border-gray-300 bg-gray-50 rounded-md p-6 group">
                         <input
+                            encType="multipart/form-data"
                             type="file"
+                            name='image'
                             className="hidden"
                             id="fileInput"
                             onChange={handleFileChange}

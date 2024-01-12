@@ -1,13 +1,15 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axiosInstance from '../../Global/Axios/AxiosInstance';
 import { CiSquarePlus } from "react-icons/ci";
 import { FaRegCheckCircle } from "react-icons/fa";
 import { IoMdCloseCircleOutline } from "react-icons/io";
+import StudentCard from '../Cards/StudentCard';
 
 const AddStudent = () => {
     const [selectedFile, setSelectedFile] = useState(null);
     const [successMessage, setSucsessMessage] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
+    const [students, setStudents] = useState([])
 
     const handleFileChange = (e) => {
         const file = e.target.files[0];
@@ -21,32 +23,28 @@ const AddStudent = () => {
         const roll = parseInt(form.roll.value, 10);
         const rawGuardiansNumber = form.number.value;
         const guardians_number = `+88${rawGuardiansNumber.replace(/\D/g, '')}`;
+        const formData = new FormData();
+
+        formData.append('name', name);
+        formData.append('class_name', class_name);
+        formData.append('roll', roll);
+        formData.append('guardians_number', guardians_number);
+        formData.append('image', selectedFile);
 
         try {
-            // Upload image to imgBB
-            const imgBBApiKey = 'db2fb6a976b720d2a464ebe2917eb735';
-            const imgFormData = new FormData();
-            imgFormData.append('image', selectedFile);
-
-            const imgBBResponse = await fetch('https://api.imgbb.com/1/upload?key=' + imgBBApiKey, {
-                method: 'POST',
-                body: imgFormData,
+            const response = await axiosInstance.post('/poststudent', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
             });
 
-            const imgBBData = await imgBBResponse.json();
-            const imageUrl = imgBBData.data.url;
-
-            // Store student data in the database
-            const student = { name, class_name, roll, guardians_number, imageUrl };
-
-            const response = await axiosInstance.post('/poststudent', student);
             console.log(response.data);
-            setSucsessMessage('Student Added Succesfully!')
-            setErrorMessage('')
+            setSucsessMessage('Student Added Successfully!');
+            setErrorMessage('');
             event.target.reset();
             setTimeout(() => {
-                setSucsessMessage('')
-            }, 3000)
+                setSucsessMessage('');
+            }, 3000);
         } catch (error) {
             console.error('Error adding student:', error);
             setErrorMessage('Failed to add student. Please try again.');
@@ -57,6 +55,22 @@ const AddStudent = () => {
             }, 3000);
         }
     };
+
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axiosInstance.get('/students');
+                const data = response.data;
+                setStudents(data);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
+
+        fetchData();
+    }, []);
+
     return (
         <div>
             <div>
@@ -80,7 +94,9 @@ const AddStudent = () => {
                 <div className='grid grid-cols-1 md:grid-cols-1 gap-5'>
                     <div className="relative border-dashed border-2 border-gray-300 bg-gray-50 rounded-md p-6 group">
                         <input
+                            encType="multipart/form-data"
                             type="file"
+                            name='image'
                             className="hidden"
                             id="fileInput"
                             onChange={handleFileChange}
@@ -138,6 +154,19 @@ const AddStudent = () => {
                 </div>
                 <input className='text-lg font-semibold  text-white rounded bg-[#daa520] hover:bg-[#dab520] duration-300 active:scale-95 px-5 py-3 mt-5 uppercase cursor-pointer' type="submit" value="Add Student" />
             </form>
+            <div className='mt-20'>
+                <h1 className='text-3xl font-bold text-gray-600'>Added Studets: {students.length}</h1>
+                <hr className='border-2 border-yellow-400 mt-3' />
+                <div className='grid grid-cols-1 md:grid-cols-5 gap-5'>
+                    {
+                        students.map(student =>
+                            <StudentCard
+                                studentData={student}
+                            ></StudentCard>
+                        )
+                    }
+                </div>
+            </div>
         </div>
     );
 };
