@@ -1,14 +1,20 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './AddTeacher.css'
 import { CiSquarePlus } from 'react-icons/ci';
 import { FaRegCheckCircle } from "react-icons/fa";
 import { IoMdCloseCircleOutline } from "react-icons/io";
 import axiosInstance from '../../Global/Axios/AxiosInstance';
+import TeacherCard from '../Cards/TeacherCard';
 
 const AddTeacher = () => {
     const [selectedFile, setSelectedFile] = useState(null);
     const [successMessage, setSucsessMessage] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
+    const [teachers,setTeachers]=useState([]);
+
+    useEffect(()=>{
+        fetchData();
+    },[])
 
     const handleFileChange = (e) => {
         const file = e.target.files[0];
@@ -40,6 +46,7 @@ const AddTeacher = () => {
             console.log(response.data);
             setSucsessMessage('Teacher Added Succesfully!')
             setErrorMessage('')
+            fetchData();
             event.target.reset();
             setTimeout(() => {
                 setSucsessMessage('')
@@ -54,6 +61,17 @@ const AddTeacher = () => {
             }, 3000);
         }
     };
+    const fetchData=async ()=>{
+        try {
+            const response= await axiosInstance.get('/teachers');
+            const data=response.data;
+            console.log(data);
+            setTeachers(data);
+
+        } catch (error) {
+             console.error('Error fetching data:', error);
+        }
+    }
     return (
         <div>
             <div>
@@ -72,7 +90,7 @@ const AddTeacher = () => {
                 </div>
             </div>
             }
-            <form onSubmit={handleAddteacher} action="" className='admin bg-white p-4 shadow-xl rounded'>
+            <form onSubmit={handleAddteacher} action="" className='admin bg-white p-4 shadow-inherit rounded'>
 
                 <div className='grid grid-cols-1 md:grid-cols-2 gap-5'>
                     <div className="relative  border-dashed border-2 border-gray-300 bg-gray-50 rounded-md p-6 group">
@@ -121,6 +139,17 @@ const AddTeacher = () => {
                 </div>
                 <input className='text-lg font-semibold  text-white rounded bg-[#daa520] hover:bg-[#dab520] duration-300 active:scale-95 px-5 py-3 mt-5 uppercase cursor-pointer' type="submit" value="Add Teacher" />
             </form>
+            <div className='mt-10'>
+                <h1 className='text-2xl font-bold text-gray-800 mb-10'>Added Teachers: {teachers.length}</h1>
+                <div className='grid grid-cols-1 md:grid-cols-3 gap-5'>
+                    {
+                        teachers.map(teacher=><TeacherCard
+                        key={teacher._id}
+                        teacherData={teacher}
+                        ></TeacherCard>)
+                    }
+                </div>
+            </div>
         </div>
     );
 };
