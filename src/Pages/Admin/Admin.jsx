@@ -32,6 +32,7 @@ const AdminPanel = () => {
                     <ActiveAdminLink to='/admin/addResult'><FaRegNoteSticky className='mr-3' />Add Result</ActiveAdminLink>
                     <ActiveAdminLink to='/admin/addRoutine'><MdOutlineTimeline className='mr-3' />Add Routine</ActiveAdminLink>
                     <ActiveAdminLink to='/admin/addNews'><FaRegNewspaper className='mr-3' />Add News</ActiveAdminLink>
+                    <ActiveAdminLink to='/admin/addHeadline'><FaRegNewspaper className='mr-3' />Add Headline & Campus image</ActiveAdminLink>
 
                 </div>
                 <hr className='my-5' />

@@ -159,7 +159,7 @@ const Navbar = () => {
 
                     </div>
                     {/* End of Dropdown */}
-                    <Link to="/" className="text-white hover:text-gray-300">
+                    <Link to="http://admission.iau.edu.bd/" target='blank' className="text-white hover:text-gray-300">
                         ভর্তি
                     </Link>
                     <Link to="/" className="text-white hover:text-gray-300">

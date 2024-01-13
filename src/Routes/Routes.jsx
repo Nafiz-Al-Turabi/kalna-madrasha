@@ -13,6 +13,7 @@ import AddStudent from "../AdminComponents/AddStudent/AddStudent";
 import AddCommitte from "../AdminComponents/AddCommitte/AddCommitte";
 import Contact from "../Pages/Contact/Contact";
 import AddNews from "../AdminComponents/AddNews/AddNews";
+import AddHeadline from "../AdminComponents/AddHeadline/AddHeadline";
 
 export const router = createBrowserRouter([
   {
@@ -65,6 +66,10 @@ export const router = createBrowserRouter([
       {
         path:'addNews',
         element:<AddNews></AddNews>
+      },
+      {
+        path:'addHeadline',
+        element:<AddHeadline></AddHeadline>
       }
     ]
   }

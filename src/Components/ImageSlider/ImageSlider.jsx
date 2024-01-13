@@ -35,7 +35,7 @@ const ImageSlider = ({ images, currentIndex, onImageClick }) => {
             <div className="flex flex-col ml-4 ">
                 <h1 className="text-[#DAA520] text-2xl font-bold mb-4">নোটিশ বোর্ড</h1>
                 <div className="flex mt-2 space-x-4">
-                    {['all', 'দাখিল','আলিম', 'ফাজিল'].map((category) => (
+                    {['all','ইবতেদায়ী', 'দাখিল','আলিম', 'ফাজিল','কামিল'].map((category) => (
                         <button
                             key={category}
                             className={`text-gray-700 px-4 py-2 focus:outline-none transition duration-300 ${activeCategory === category

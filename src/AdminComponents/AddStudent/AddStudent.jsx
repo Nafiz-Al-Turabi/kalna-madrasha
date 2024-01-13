@@ -4,13 +4,17 @@ import { CiSquarePlus } from "react-icons/ci";
 import { FaRegCheckCircle } from "react-icons/fa";
 import { IoMdCloseCircleOutline } from "react-icons/io";
 import StudentCard from '../Cards/StudentCard';
+import StudentTable from '../Cards/StudentTable';
 
 const AddStudent = () => {
     const [selectedFile, setSelectedFile] = useState(null);
     const [successMessage, setSucsessMessage] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
     const [students, setStudents] = useState([])
-    
+
+    useEffect(()=>{
+        fetchData();
+    },[])
 
     const handleFileChange = (e) => {
         const file = e.target.files[0];
@@ -43,6 +47,7 @@ const AddStudent = () => {
             setSucsessMessage('Student Added Successfully!');
             setErrorMessage('');
             event.target.reset();
+            fetchData();
             setTimeout(() => {
                 setSucsessMessage('');
             }, 3000);
@@ -58,7 +63,6 @@ const AddStudent = () => {
     };
 
 
-    useEffect(() => {
         const fetchData = async () => {
             try {
                 const response = await axiosInstance.get('/students');
@@ -69,8 +73,6 @@ const AddStudent = () => {
             }
         };
 
-        fetchData();
-    }, []);
 
     return (
         <div>
@@ -158,16 +160,32 @@ const AddStudent = () => {
             <div className='mt-20'>
                 <h1 className='text-3xl font-bold text-gray-600'>Added Studets: {students.length}</h1>
                 <hr className='border-2 border-yellow-400 mt-3' />
-                <div className='grid grid-cols-1 md:grid-cols-5 gap-5'>
-                    {
-                        students.map(student =>
-                            <StudentCard
-                                studentData={student}
-                            ></StudentCard>
-                        )
-                    }
+                <div class="container mx-auto mt-8">
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full bg-white border border-gray-300 rounded-md">
+                            <thead class="bg-gray-800 text-white">
+                                <tr>
+                                    <th class="py-3 px-6 text-left">Image</th>
+                                    <th class="py-3 px-6 text-left">Name</th>
+                                    <th class="py-3 px-6 text-left">Class Name</th>
+                                    <th class="py-3 px-6 text-left">Roll</th>
+                                    <th class="py-3 px-6 text-left">Guardians Number</th>
+                                    <th class="py-3 px-6 text-left">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-200">
+                                {
+                                    students.map(student => <StudentTable
+                                        key={student._id}
+                                        studentData={student}
+                                    ></StudentTable>)
+                                }
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
+
         </div>
     );
 };

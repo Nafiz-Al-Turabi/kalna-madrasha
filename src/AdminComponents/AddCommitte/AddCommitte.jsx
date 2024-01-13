@@ -1,13 +1,19 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { CiSquarePlus } from 'react-icons/ci';
 import { FaRegCheckCircle } from "react-icons/fa";
 import { IoMdCloseCircleOutline } from "react-icons/io";
 import axiosInstance from '../../Global/Axios/AxiosInstance';
+import CommitteCard from '../Cards/CommitteCard';
 
 const AddCommitte = () => {
     const [selectedFile, setSelectedFile] = useState(null);
     const [successMessage, setSucsessMessage] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
+    const [committes, setCommittes] = useState([]);
+
+    useEffect(()=>{
+        fetchData();
+    },[])
 
     const handleFileChange = (e) => {
         const file = e.target.files[0];
@@ -37,6 +43,7 @@ const AddCommitte = () => {
             setSucsessMessage('Committee Added Succesfully!')
             setErrorMessage('')
             event.target.reset();
+            fetchData();
             setTimeout(() => {
                 setSucsessMessage('')
             }, 3000)
@@ -50,6 +57,18 @@ const AddCommitte = () => {
             }, 3000);
         }
     };
+
+    const fetchData = async () => {
+        try {
+            const response = await axiosInstance.get('/committes')
+            const data = response.data;
+            console.log(data);
+            setCommittes(data);
+
+        } catch (error) {
+
+        }
+    }
     return (
         <div>
             <div>
@@ -115,6 +134,17 @@ const AddCommitte = () => {
                 </div>
                 <input className='text-lg font-semibold  text-white rounded bg-[#daa520] hover:bg-[#dab520] duration-300 active:scale-95 px-5 py-3 mt-5 uppercase cursor-pointer' type="submit" value="Add Committe" />
             </form>
+            <div className='my-5'>
+                <h1 className='text-2xl font-bold text-gray-800 mb-10'>Committe Member: {committes.length} </h1>
+                <div className='grid grid-cols-1 md:grid-cols-3 gap-5'>
+                    {
+                        committes.map(committe=><CommitteCard
+                        key={committe._id}
+                        committeData={committe}
+                        ></CommitteCard>)
+                    }
+                </div>
+            </div>
         </div>
     );
 };
