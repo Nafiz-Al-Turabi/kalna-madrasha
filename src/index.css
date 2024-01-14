@@ -82,7 +82,7 @@ button:focus-visible {
 @keyframes fade-pop-up{
   0%{
       opacity: 0;
-      transform: translateX(-4rem) scale(.8);
+      transform: translateY(0rem) scale(.8);
   }
   100%{
       opacity: 1;
@@ -107,7 +107,7 @@ button:focus-visible {
 @keyframes fade-up{
   0%{
       opacity: 0;
-      transform: translateX(-10rem) scale(.8);
+      transform: translateY(0rem) scale(.8);
   }
   100%{
       opacity: 1;
