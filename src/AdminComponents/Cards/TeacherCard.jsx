@@ -1,7 +1,30 @@
-import React from 'react';
+import React, { useState } from 'react';
+import axiosInstance from '../../Global/Axios/AxiosInstance';
+import DeleteModal from '../Modal/DeleteModal/DeleteModal';
 
-const TeacherCard = ({teacherData}) => {
-    const {imagePath,name,designation,email,number}=teacherData;
+const TeacherCard = ({ teacherData, onDelete }) => {
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const openModal = () => {
+        setIsModalOpen(true);
+    };
+
+    const closeModal = () => {
+        setIsModalOpen(false);
+    }
+    const { _id, imagePath, name, designation, email, number } = teacherData;
+
+
+    const handleDelete = async () => {
+        try {
+            closeModal();
+            await axiosInstance.delete(`/teachers/${_id}`)
+            onDelete(_id)
+        } catch (error) {
+            console.error('Failed to delete teacher:', error);
+        }
+    }
+
     return (
         <div className=' flex bg-white rounded-lg shadow-lg overflow-hidden'>
             <div className='flex justify-center overflow-hidden'>
@@ -13,7 +36,8 @@ const TeacherCard = ({teacherData}) => {
                 <p className=' font-bold'>Email: <span className='text-base text-gray-600'>{email}</span></p>
                 <p className=' font-bold'>Phone: <span className='text-base text-gray-600'>{number}</span></p>
                 <button className='bg-green-500 text-white font-semibold px-5 py-1 mt-1 rounded-md hover:bg-green-600 duration-300 active:scale-95 mr-5'>Update</button>
-                <button className='bg-red-500 text-white font-semibold px-5 py-1 mt-1 rounded-md hover:bg-red-600 duration-300 active:scale-95 '>Delete</button>
+                <button onClick={openModal} className='bg-red-500 text-white font-semibold px-5 py-1 mt-1 rounded-md hover:bg-red-600 duration-300 active:scale-95 '>Delete</button>
+                <DeleteModal isOpen={isModalOpen} closeModal={closeModal} handleDelete={handleDelete}></DeleteModal>
             </div>
         </div>
     );

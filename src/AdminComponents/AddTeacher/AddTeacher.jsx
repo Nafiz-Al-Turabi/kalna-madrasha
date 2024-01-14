@@ -71,6 +71,11 @@ const AddTeacher = () => {
         } catch (error) {
              console.error('Error fetching data:', error);
         }
+    };
+
+    const handleDelete= (deleteTeacher)=>{
+        setTeachers((prevTeacher)=>prevTeacher.filter((teacher)=>teacher.id !== deleteTeacher));
+        fetchData();
     }
     return (
         <div>
@@ -146,6 +151,7 @@ const AddTeacher = () => {
                         teachers.map(teacher=><TeacherCard
                         key={teacher._id}
                         teacherData={teacher}
+                        onDelete={handleDelete}
                         ></TeacherCard>)
                     }
                 </div>

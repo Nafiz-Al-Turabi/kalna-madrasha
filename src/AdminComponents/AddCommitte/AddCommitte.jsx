@@ -11,9 +11,9 @@ const AddCommitte = () => {
     const [errorMessage, setErrorMessage] = useState('');
     const [committes, setCommittes] = useState([]);
 
-    useEffect(()=>{
+    useEffect(() => {
         fetchData();
-    },[])
+    }, [])
 
     const handleFileChange = (e) => {
         const file = e.target.files[0];
@@ -68,6 +68,11 @@ const AddCommitte = () => {
         } catch (error) {
 
         }
+    }
+    // delete committe
+    const handleDelete = (deleteCommitte) => {
+        setCommittes((prevCommitte) => prevCommitte.filter((committe) => committe.id !== deleteCommitte));
+        fetchData();
     }
     return (
         <div>
@@ -138,9 +143,10 @@ const AddCommitte = () => {
                 <h1 className='text-2xl font-bold text-gray-800 mb-10'>Committe Member: {committes.length} </h1>
                 <div className='grid grid-cols-1 md:grid-cols-3 gap-5'>
                     {
-                        committes.map(committe=><CommitteCard
-                        key={committe._id}
-                        committeData={committe}
+                        committes.map(committe => <CommitteCard
+                            key={committe._id}
+                            committeData={committe}
+                            onDelete={handleDelete}
                         ></CommitteCard>)
                     }
                 </div>
