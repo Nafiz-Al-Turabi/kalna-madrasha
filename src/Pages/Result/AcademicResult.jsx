@@ -112,13 +112,13 @@ const AcademicResult = () => {
                             <p className='text-lg text-[#DAA520]'>{result.class_name}</p>
                             <div>
                                 <button
-                                    className='text-lg font-semibold bg-red-500 text-white px-5 mr-5'
+                                    className='font-semibold bg-red-500 text-white px-5 mr-5'
                                     onClick={() => downloadPdf(result)}
                                 >
                                     Download
                                 </button>
-                                <button className='text-lg font-semibold bg-cyan-500 text-white px-5 md:my-2' onClick={() => viewPdf(result)}>
-                                    View PDF
+                                <button className='font-semibold bg-cyan-500 text-white px-5 md:my-2' onClick={() => viewPdf(result)}>
+                                    View result
                                 </button>
                             </div>
                         </div>

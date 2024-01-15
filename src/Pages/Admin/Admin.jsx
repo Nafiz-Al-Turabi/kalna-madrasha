@@ -47,7 +47,7 @@ const AdminPanel = () => {
             {/* Main Content */}
             <div className="flex-1 flex flex-col overflow-hidden">
                 {/* Top Bar */}
-                <header className="bg-white shadow-md p-4">
+                <header className="bg-[#DAA520] shadow-md p-4">
                     {/* Toggle Button (visible on mobile and tablet) */}
                     <button
                         className="lg:hidden text-gray-600 focus:outline-none"
@@ -55,7 +55,7 @@ const AdminPanel = () => {
                     >
                         &#9776; {/* Hamburger icon */}
                     </button>
-                    <span className="text-xl font-bold ml-4">কালনা আমিনিয়া ফাজিল (ডিগ্রী) মাদরাসা</span>
+                    <span className="text-xl font-bold ml-4  text-white">কালনা আমিনিয়া ফাজিল (ডিগ্রী) মাদরাসা</span>
                 </header>
 
                 {/* Page Content */}
