@@ -66,6 +66,7 @@ const AddRoutine = () => {
                     {routines.map((routine) => (
                         <li key={routine._id}>
                             <img src={`http://localhost:5000/getimage?path=${routine.path}`} alt={routine.filename} style={{ maxWidth: '500px' }} />
+                            <a href={`http://localhost:5000/getimage?path=${routine.path}`} download={routine.filename} >Download</a>
                         </li>
                     ))}
                 </ul>

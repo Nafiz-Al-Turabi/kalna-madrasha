@@ -146,7 +146,7 @@ const Navbar = () => {
                             <Link to="/" className="block px-4 py-2 hover:text-gray-300">
                                 পাঠক্রম
                             </Link>
-                            <Link to="/" className="block px-4 py-2 hover:text-gray-300">
+                            <Link to="/academicResult" className="block px-4 py-2 hover:text-gray-300">
                                 ফলাফল
                             </Link>
                             <Link to="/" className="block px-4 py-2 hover:text-gray-300">

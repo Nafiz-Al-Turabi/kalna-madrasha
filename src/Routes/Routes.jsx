@@ -14,6 +14,7 @@ import AddCommitte from "../AdminComponents/AddCommitte/AddCommitte";
 import Contact from "../Pages/Contact/Contact";
 import AddNews from "../AdminComponents/AddNews/AddNews";
 import AddHeadline from "../AdminComponents/AddHeadline/AddHeadline";
+import AcademicResult from "../Pages/Result/AcademicResult";
 
 export const router = createBrowserRouter([
   {
@@ -23,6 +24,10 @@ export const router = createBrowserRouter([
       {
         path: '/',
         element: <Home></Home>
+      },
+      {
+        path:'/academicResult',
+        element:<AcademicResult></AcademicResult>
       },
       {
         path:'/contact',

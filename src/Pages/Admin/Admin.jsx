@@ -6,7 +6,6 @@ import { PiUsersFourBold } from "react-icons/pi";
 import { ImUserTie } from "react-icons/im";
 import ActiveAdminLink from '../../Components/ActiveAdminLink/ActiveAdminLink';
 
-// import './AdminPanel.css'; // Import the generated CSS file
 
 const AdminPanel = () => {
     const [isSidebarOpen, setSidebarOpen] = useState(true); // Sidebar open by default on larger screens
