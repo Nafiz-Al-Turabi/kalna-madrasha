@@ -148,8 +148,9 @@ const AddResult = () => {
                 </div>
             </form>
             <div className='mt-20'>
-                <h1 className='text-3xl font-bold text-gray-600'>Added Results: {results.length}</h1>
-                <hr className='border-2 border-yellow-400 mt-3' />
+                <div className='bg-gray-800 mt-5 p-5 text-white'>
+                    <h1 className='text-3xl font-bold uppercase '>Added Results: {results.length}</h1>
+                </div>
                 <div className="container mx-auto mt-8">
                     <div className="overflow-x-auto">
                         <table className="min-w-full bg-white border border-gray-300 rounded-md">

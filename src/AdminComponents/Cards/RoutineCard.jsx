@@ -23,10 +23,10 @@ const RoutineCard = ({ routineData, onDelete }) => {
         }
     }
     return (
-        <div className='flex justify-between items-center bg-white p-2 rounded-lg text-gray-700 overflow-hidden'>
+        <div className='flex justify-between items-center bg-slate-300 p-2  text-gray-700 overflow-hidden shadow-md'>
             <div className='flex items-center gap-5'>
                 <img src={pdfImage} alt="pdf" className='h-10' />
-                <h1>{routineData.title}</h1>
+                <h1 className='text-lg'>{routineData.title}</h1>
             </div>
 
             <div >

@@ -64,8 +64,8 @@ const AddNotice = () => {
         }
     };
 
-    const handleDelete=(deleteNoticeId)=>{
-        setNotices((prevNotice)=>prevNotice.filter((notice)=>notice.id !== deleteNoticeId))
+    const handleDelete = (deleteNoticeId) => {
+        setNotices((prevNotice) => prevNotice.filter((notice) => notice.id !== deleteNoticeId))
         fetchData();
     }
 
@@ -172,8 +172,9 @@ const AddNotice = () => {
                 </form>
             </div>
             <div className='mt-20'>
-                <h1 className='text-3xl font-bold text-gray-600'>Added Notices: {notices.length}</h1>
-                <hr className='border-2 border-yellow-400 mt-3' />
+                <div className='bg-gray-800 my-5 p-5 text-white'>
+                    <h1 className='text-3xl font-bold uppercase '>Added Notices: {notices.length}</h1>
+                </div>
                 <div className="container mx-auto mt-8">
                     <div className="overflow-x-auto">
                         <table className="min-w-full bg-white border border-gray-300 rounded-md">
@@ -189,10 +190,10 @@ const AddNotice = () => {
                             </thead>
                             <tbody className="divide-y divide-gray-200">
                                 {
-                                    notices.map(notice=><NoticeTable
-                                    key={notice._id}
-                                    noticeData={notice}
-                                    onDelete={handleDelete}
+                                    notices.map(notice => <NoticeTable
+                                        key={notice._id}
+                                        noticeData={notice}
+                                        onDelete={handleDelete}
                                     ></NoticeTable>)
                                 }
                             </tbody>

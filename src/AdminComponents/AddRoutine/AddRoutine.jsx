@@ -67,8 +67,8 @@ const AddRoutine = () => {
         }
     };
 
-    const handleDelete=(deleteRoutineId)=>{
-        setRoutines((prevRoutines)=>prevRoutines.filter((routine)=>routine.id !== deleteRoutineId));
+    const handleDelete = (deleteRoutineId) => {
+        setRoutines((prevRoutines) => prevRoutines.filter((routine) => routine.id !== deleteRoutineId));
         fetchData();
     }
     return (
@@ -147,8 +147,9 @@ const AddRoutine = () => {
                 </form>
             </div>
             <div>
-                <h1 className='text-3xl font-bold text-gray-600'>Added Routines: {routines.length}</h1>
-                <hr className='border-2 border-yellow-400 my-3' />
+                <div className='bg-gray-800 my-5 p-5 text-white'>
+                    <h1 className='text-3xl font-bold uppercase '>Added Routines: {routines.length}</h1>
+                </div>
                 <div className='grid grid-cols-1 gap-2'>
                     {
                         routines.map(routine => <RoutineCard

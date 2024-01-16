@@ -73,8 +73,8 @@ const AddStudent = () => {
     };
 
     // delete students
-    const handleDelete=(deleteStudentId)=>{
-        setStudents((prevStudent)=>prevStudent.filter((student)=>student.id !== deleteStudentId))
+    const handleDelete = (deleteStudentId) => {
+        setStudents((prevStudent) => prevStudent.filter((student) => student.id !== deleteStudentId))
         fetchData();
     }
 
@@ -163,8 +163,9 @@ const AddStudent = () => {
                 <input className='w-full text-lg font-semibold  text-white rounded bg-[#daa520] hover:bg-[#dab520] duration-300 active:scale-95 px-5 py-3 mt-5 uppercase cursor-pointer' type="submit" value="Add Student" />
             </form>
             <div className='mt-20'>
-                <h1 className='text-3xl font-bold text-gray-600'>Added Studets: {students.length}</h1>
-                <hr className='border-2 border-yellow-400 mt-3' />
+                <div className='bg-gray-800 my-5 p-5 text-white'>
+                    <h1 className='text-3xl font-bold uppercase '>Added Students: {students.length}</h1>
+                </div>
                 <div className="container mx-auto mt-8">
                     <div className="overflow-x-auto">
                         <table className="min-w-full bg-white border border-gray-300 rounded-md">
