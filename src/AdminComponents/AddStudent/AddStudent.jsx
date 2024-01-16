@@ -160,7 +160,7 @@ const AddStudent = () => {
                         </div>
                     </div>
                 </div>
-                <input className='text-lg font-semibold  text-white rounded bg-[#daa520] hover:bg-[#dab520] duration-300 active:scale-95 px-5 py-3 mt-5 uppercase cursor-pointer' type="submit" value="Add Student" />
+                <input className='w-full text-lg font-semibold  text-white rounded bg-[#daa520] hover:bg-[#dab520] duration-300 active:scale-95 px-5 py-3 mt-5 uppercase cursor-pointer' type="submit" value="Add Student" />
             </form>
             <div className='mt-20'>
                 <h1 className='text-3xl font-bold text-gray-600'>Added Studets: {students.length}</h1>

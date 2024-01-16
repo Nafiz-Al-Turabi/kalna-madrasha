@@ -137,7 +137,7 @@ const AddCommitte = () => {
                         </div>
                     </div>
                 </div>
-                <input className='text-lg font-semibold  text-white rounded bg-[#daa520] hover:bg-[#dab520] duration-300 active:scale-95 px-5 py-3 mt-5 uppercase cursor-pointer' type="submit" value="Add Committe" />
+                <input className='w-full text-lg font-semibold  text-white rounded bg-[#daa520] hover:bg-[#dab520] duration-300 active:scale-95 px-5 py-3 mt-5 uppercase cursor-pointer' type="submit" value="Add Committe" />
             </form>
             <div className='my-5'>
                 <h1 className='text-2xl font-bold text-gray-800 mb-10'>Committe Member: {committes.length} </h1>
