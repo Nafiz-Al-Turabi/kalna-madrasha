@@ -13,8 +13,8 @@ import AddStudent from "../AdminComponents/AddStudent/AddStudent";
 import AddCommitte from "../AdminComponents/AddCommitte/AddCommitte";
 import Contact from "../Pages/Contact/Contact";
 import AddNews from "../AdminComponents/AddNews/AddNews";
-import AddHeadline from "../AdminComponents/AddHeadline/AddHeadline";
 import AcademicResult from "../Pages/Result/AcademicResult";
+import Others from "../AdminComponents/Others/Others";
 
 export const router = createBrowserRouter([
   {
@@ -73,8 +73,8 @@ export const router = createBrowserRouter([
         element:<AddNews></AddNews>
       },
       {
-        path:'addHeadline',
-        element:<AddHeadline></AddHeadline>
+        path:'others',
+        element:<Others></Others>
       }
     ]
   }

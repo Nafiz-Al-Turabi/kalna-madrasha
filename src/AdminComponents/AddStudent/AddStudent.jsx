@@ -46,6 +46,7 @@ const AddStudent = () => {
             setSucsessMessage('Student Added Successfully!');
             setErrorMessage('');
             event.target.reset();
+            setSelectedFile(null);
             fetchData();
             setTimeout(() => {
                 setSucsessMessage('');

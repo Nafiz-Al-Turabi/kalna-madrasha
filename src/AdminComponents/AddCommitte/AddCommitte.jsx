@@ -43,6 +43,7 @@ const AddCommitte = () => {
             setSucsessMessage('Committee Added Succesfully!')
             setErrorMessage('')
             event.target.reset();
+            setSelectedFile(null);
             fetchData();
             setTimeout(() => {
                 setSucsessMessage('')

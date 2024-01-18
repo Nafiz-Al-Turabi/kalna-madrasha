@@ -36,7 +36,7 @@ const AddResult = () => {
             setSucsessMessage('Result Added Successfully!');
             setErrorMessage('');
             event.target.reset();
-            console.log(response.data)
+            setSelectedFile(null)
             fetchData();
             setTimeout(() => {
                 setSucsessMessage('');

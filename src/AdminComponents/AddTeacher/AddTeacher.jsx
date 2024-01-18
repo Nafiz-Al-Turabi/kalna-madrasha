@@ -48,6 +48,7 @@ const AddTeacher = () => {
             setErrorMessage('')
             fetchData();
             event.target.reset();
+            setSelectedFile();
             setTimeout(() => {
                 setSucsessMessage('')
             }, 3000)

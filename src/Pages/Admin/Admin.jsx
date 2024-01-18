@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import { MdAdminPanelSettings, MdDashboard, MdOutlineTimeline } from "react-icons/md";
-import { FaHouse, FaNewspaper, FaRegNewspaper, FaRegNoteSticky, FaUserGraduate, FaWatchmanMonitoring } from "react-icons/fa6";
+import { FaBuffer, FaHouse, FaNewspaper, FaRegNewspaper, FaRegNoteSticky, FaUserGraduate, FaWatchmanMonitoring } from "react-icons/fa6";
 import { PiUsersFourBold } from "react-icons/pi";
 import { ImUserTie } from "react-icons/im";
 import ActiveAdminLink from '../../Components/ActiveAdminLink/ActiveAdminLink';
@@ -31,7 +31,7 @@ const AdminPanel = () => {
                     <ActiveAdminLink to='/admin/addResult'><FaRegNoteSticky className='mr-3' />Add Result</ActiveAdminLink>
                     <ActiveAdminLink to='/admin/addRoutine'><MdOutlineTimeline className='mr-3' />Add Routine</ActiveAdminLink>
                     <ActiveAdminLink to='/admin/addNews'><FaRegNewspaper className='mr-3' />Add News</ActiveAdminLink>
-                    <ActiveAdminLink to='/admin/addHeadline'><FaRegNewspaper className='mr-3' />Add Headline & Campus image</ActiveAdminLink>
+                    <ActiveAdminLink to='/admin/others'><FaBuffer className='mr-3' />Others</ActiveAdminLink>
 
                 </div>
                 <hr className='my-5' />

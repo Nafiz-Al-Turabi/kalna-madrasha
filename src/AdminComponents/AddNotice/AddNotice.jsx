@@ -42,6 +42,7 @@ const AddNotice = () => {
             setSucsessMessage('Notice Added Successfully!');
             setErrorMessage('');
             event.target.reset();
+            setSelectedFile(null)
             setTimeout(() => {
                 setSucsessMessage('');
             }, 3000);
