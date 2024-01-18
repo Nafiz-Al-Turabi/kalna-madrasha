@@ -113,4 +113,12 @@ button:focus-visible {
       opacity: 1;
       transform: none;
   }
+};
+.marquee-item {
+  display: inline-block;
+  margin-right: 10px; /* Adjust the margin as needed */
+}
+
+.marquee-divider {
+  margin-right: 10px; /* Adjust the margin as needed */
 }
