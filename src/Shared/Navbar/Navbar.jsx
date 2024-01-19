@@ -12,72 +12,81 @@ const Navbar = () => {
     const [isAdmissionOpen, setAdmissionOpen] = useState(false);
     const [isHallOpen, setHallOpen] = useState(false);
     const [isSticky, setIsSticky] = useState(false);
+    const [activeDropdown, setActiveDropdown] = useState(null);
 
     const handleScroll = () => {
         // Adjust the scroll threshold based on your design
         const scrollThreshold = 350;
-    
+
         // Check if the scroll position is beyond the threshold
         setIsSticky(window.scrollY > scrollThreshold);
-      };
-    
-      useEffect(() => {
+    };
+
+    useEffect(() => {
         // Add scroll event listener to handle scroll position
         window.addEventListener('scroll', handleScroll);
-    
+
         // Cleanup the event listener when the component is unmounted
         return () => {
-          window.removeEventListener('scroll', handleScroll);
+            window.removeEventListener('scroll', handleScroll);
         };
-      }, []);
+    }, []);
 
-    const toggleMenu = () => {
+    const toggleMenu = (event) => {
+        event.stopPropagation();
         setIsOpen(!isOpen);
+        setActiveDropdown(null);
+    };
+    const toggleDropdown = (dropdown) => {
+        if (activeDropdown === dropdown) {
+            setActiveDropdown(null); // Close the current dropdown if it's already open
+        } else {
+            setActiveDropdown(dropdown);
+        }
     };
 
-    const toggleServices = () => {
-        setIsServicesOpen(!isServicesOpen);
+    const closeDropdownOnOutsideClick = (event) => {
+        if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+            setActiveDropdown(null);
+        }
     };
-    const toggleIntro = () => {
-        setIntroOpen(!isIntroOpen);
-    };
-    const toggleAcademic = () => {
-        setAcademicOpen(!isAcademicOpen);
-    };
-    const toggleAdmission = () => {
-        setAdmissionOpen(!isAdmissionOpen);
-    };
-    const toggleHall = () => {
-        setHallOpen(!isHallOpen);
-    };
+
+    useEffect(() => {
+        document.addEventListener('click', closeDropdownOnOutsideClick);
+
+        return () => {
+            document.removeEventListener('click', closeDropdownOnOutsideClick);
+        };
+    }, []);
+
     // disable scrolling for mobile menu
     useEffect(() => {
         if (isOpen) {
-          // Disable scrolling when the mobile menu is open
-          document.body.style.overflow = 'hidden';
+            // Disable scrolling when the mobile menu is open
+            document.body.style.overflow = 'hidden';
         } else {
-          // Enable scrolling when the mobile menu is closed
-          document.body.style.overflow = 'auto';
+            // Enable scrolling when the mobile menu is closed
+            document.body.style.overflow = 'auto';
         }
-    
+
         // Cleanup to enable scrolling when the component is unmounted
         return () => {
-          document.body.style.overflow = 'auto';
+            document.body.style.overflow = 'auto';
         };
-      }, [isOpen]);
+    }, [isOpen]);
 
     return (
         <nav className={`p-4 z-40 transition-all duration-300 bg-[#DAA520] ease-in-out ${isSticky ? 'fixed top-0 w-full bg-[#DAA520] shadow-lg' : ''}`}>
             <div className="max-w-7xl mx-auto flex justify-between md:justify-center ">
                 {/* Logo */}
                 <div className="md:hidden text-white text-lg font-bold uppercase">
-                    <Link to="/"  >কালনা আমিনিয়া ফাজিল (ডিগ্রী) মাদরাসা</Link>
+                    <Link onClick={() => toggleDropdown('')} to="/"  >কালনা আমিনিয়া ফাজিল (ডিগ্রী) মাদরাসা</Link>
                 </div>
 
                 {/* Mobile Menu Toggler */}
                 <div className="block lg:hidden">
                     <button
-                        onClick={toggleMenu}
+                       onClick={(event) => toggleMenu(event)}
                         className="text-white hover:text-gray-300 focus:outline-none"
                     >
                         {isOpen ? (
@@ -116,27 +125,27 @@ const Navbar = () => {
 
                 {/* Desktop Menu */}
                 <div className="hidden lg:flex space-x-4">
-                    <Link to="/" className="text-white hover:text-gray-300">
+                    <Link onClick={() => toggleDropdown('')} to="/" className="text-white hover:text-gray-300">
                         মূল পাতা
                     </Link>
                     {/* Services with dropdown */}
                     <div className="relative group">
                         <span
-                            onClick={toggleServices}
+                            onClick={() => toggleDropdown('services')}
                             className="flex items-center  text-white hover:text-gray-300 cursor-pointer select-none"
                         >
                             বিদ্যালয়ের তথ্য <IoIosArrowDown />
                         </span>
                         {/* Dropdown Menu */}
 
-                        <div className={`absolute z-50 w-60 top-full left-0 bg-[#DAA520] shadow-xl rounded-lg origin-top text-white py-2 mt-2 space-y-2 ${isServicesOpen ? 'scale-y-full duration-300' : 'scale-y-0'}`}>
-                            <Link to="/" className="block px-4 py-2 hover:text-gray-300">
+                        <div className={`absolute z-50 w-60 top-full left-0 bg-[#DAA520] shadow-xl rounded-lg origin-top text-white py-2 mt-2 space-y-2 ${activeDropdown === 'services' ? 'scale-y-full duration-300' : 'scale-y-0 duration-300'}`}>
+                            <Link onClick={() => toggleDropdown('')} to="/" className="block px-4 py-2 hover:text-gray-300">
                                 শিক্ষক শিক্ষিকার তথ্য
                             </Link>
-                            <Link to="/" className="block px-4 py-2 hover:text-gray-300">
+                            <Link onClick={() => toggleDropdown('')} to="/" className="block px-4 py-2 hover:text-gray-300">
                                 ছাত্র-ছাত্রীর তথ্য
                             </Link>
-                            <Link to="/" className="block px-4 py-2 hover:text-gray-300">
+                            <Link onClick={() => toggleDropdown('')} to="/" className="block px-4 py-2 hover:text-gray-300">
                                 ম্যানেজিং কমিটি
                             </Link>
                         </div>
@@ -145,21 +154,21 @@ const Navbar = () => {
                     {/* End of Dropdown */}
                     <div className="relative group">
                         <span
-                            onClick={toggleIntro}
+                            onClick={() => toggleDropdown('intro')}
                             className="flex items-center  text-white hover:text-gray-300 cursor-pointer select-none"
                         >
                             পরিচিতি <IoIosArrowDown />
                         </span>
                         {/* Dropdown Menu */}
 
-                        <div className={`absolute z-50 w-60 top-full left-0 bg-[#DAA520] shadow-xl rounded-lg origin-top text-white py-2 mt-2 space-y-2 ${isIntroOpen ? 'scale-y-full duration-300' : 'scale-y-0'}`}>
-                            <Link to="/" className="block px-4 py-2 hover:text-gray-300">
+                        <div className={`absolute z-50 w-60 top-full left-0 bg-[#DAA520] shadow-xl rounded-lg origin-top text-white py-2 mt-2 space-y-2 ${activeDropdown === 'intro' ? 'scale-y-full duration-300' : 'scale-y-0 duration-300'}`}>
+                            <Link onClick={() => toggleDropdown('')} to="/" className="block px-4 py-2 hover:text-gray-300">
                                 এক নজরে মাদরাসা
                             </Link>
-                            <Link to="/" className="block px-4 py-2 hover:text-gray-300">
+                            <Link onClick={() => toggleDropdown('')} to="/" className="block px-4 py-2 hover:text-gray-300">
                                 অধ্যক্ষের বাণী
                             </Link>
-                            <Link to="/" className="block px-4 py-2 hover:text-gray-300">
+                            <Link onClick={() => toggleDropdown('')} to="/" className="block px-4 py-2 hover:text-gray-300">
                                 কমপ্লেক্স
                             </Link>
                         </div>
@@ -168,146 +177,146 @@ const Navbar = () => {
                     {/* End of Dropdown */}
                     <div className="relative group">
                         <span
-                            onClick={toggleAcademic}
+                            onClick={() => toggleDropdown('academic')}
                             className="flex items-center  text-white hover:text-gray-300 cursor-pointer select-none"
                         >
                             একাডেমিক  <IoIosArrowDown />
                         </span>
                         {/* Dropdown Menu */}
 
-                        <div className={`absolute z-50 w-60 top-full left-0 bg-[#DAA520] shadow-xl rounded-lg origin-top text-white py-2 mt-2 space-y-2 ${isAcademicOpen ? 'scale-y-full duration-300' : 'scale-y-0'}`}>
+                        <div className={`absolute z-50 w-60 top-full left-0 bg-[#DAA520] shadow-xl rounded-lg origin-top text-white py-2 mt-2 space-y-2 ${activeDropdown === 'academic' ? 'scale-y-full duration-300' : 'scale-y-0 duration-300'}`}>
 
-                            <Link to="/" className="block px-4 py-2 hover:text-gray-300">
+                            <Link onClick={() => toggleDropdown('')} to="/" className="block px-4 py-2 hover:text-gray-300">
                                 পাঠক্রম
                             </Link>
-                            <Link to="/academicResult" className="block px-4 py-2 hover:text-gray-300">
+                            <Link onClick={() => toggleDropdown('')} to="/academicResult" className="block px-4 py-2 hover:text-gray-300">
                                 ফলাফল
                             </Link>
-                            <Link to="/" className="block px-4 py-2 hover:text-gray-300">
+                            <Link onClick={() => toggleDropdown('')} to="/" className="block px-4 py-2 hover:text-gray-300">
                                 ছুটির তালিকা
                             </Link>
-                            <Link to="/" className="block px-4 py-2 hover:text-gray-300">
+                            <Link onClick={() => toggleDropdown('')} to="/" className="block px-4 py-2 hover:text-gray-300">
                                 পরীক্ষার রুটিন
                             </Link>
                         </div>
 
                     </div>
                     {/* End of Dropdown */}
-                    <Link to="http://admission.iau.edu.bd/" target='blank' className="text-white hover:text-gray-300">
+                    <Link onClick={() => toggleDropdown('')} to="http://admission.iau.edu.bd/" target='blank' className="text-white hover:text-gray-300">
                         ভর্তি
                     </Link>
-                    <Link to="/" className="text-white hover:text-gray-300">
+                    <Link onClick={() => toggleDropdown('')} to="/" className="text-white hover:text-gray-300">
                         লিল্লাহ বোর্ডিং
                     </Link>
-                    
-                    <Link to="/" className="text-white hover:text-gray-300">
+
+                    <Link onClick={() => toggleDropdown('')} to="/" className="text-white hover:text-gray-300">
                         ই-লাইব্রেরী
                     </Link>
-                    <Link to="/contact" className="text-white hover:text-gray-300">
+                    <Link onClick={() => toggleDropdown('')} to="/contact" className="text-white hover:text-gray-300">
                         যোগাযোগ
                     </Link>
-                    <Link to="/admin/dashboard" className="text-white hover:text-gray-300">
+                    <Link onClick={() => toggleDropdown('')} to="/admin/dashboard" className="text-white hover:text-gray-300">
                         লগইন
                     </Link>
                 </div>
 
                 {/* Mobile Menu */}
                 <div
-                    className={`lg:hidden h-full absolute z-50 top-[61px] left-0  w-full bg-[#DAA520]  transform origin-top transition-transform ${isOpen ? 'scale-y-100' : 'scale-y-0'
+                    className={`lg:hidden h-full absolute z-50 top-[61px] left-0  w-full bg-black  transform origin-top transition-transform ${isOpen ? 'scale-y-100' : 'scale-y-0'
                         }`}
                 >
-                    <Link to="/" className="block px-4 py-2 text-white hover:text-gray-300" >
+                    <Link onClick={toggleMenu}  to="/" className="block text-xl my-5 bg-gray-500/30 mx-3  px-4 py-2 text-white hover:text-gray-300" >
                         মূল পাতা
                     </Link>
 
 
                     {/* Services with dropdown */}
-                    <div className="relative group">
+                    <div className="relative group ">
                         <span
-                            onClick={toggleServices}
-                            className="flex items-center px-4 py-2 text-white hover:text-gray-300 cursor-pointer select-none"
+                            onClick={() => toggleDropdown('services')}
+                            className="flex items-center text-xl bg-gray-500/30 mx-3 my-5 px-4 py-2 text-white hover:text-gray-300 cursor-pointer select-none"
                         >
                             বিদ্যালয়ের তথ্য <IoIosArrowDown />
                         </span>
                         {/* Dropdown Menu */}
 
-                        <div className={`absolute z-50  top-full left-0 bg-[#DAA520] shadow-xl rounded-lg origin-top text-white py-2 mt-2 space-y-2 ${isServicesOpen ? 'scale-y-full duration-300' : 'scale-y-0'}`}>
-                            <Link to="/" className="block px-4 py-2 hover:text-gray-300">
+                        <div className={`absolute z-50  top-full left-0 bg-black rounded-lg origin-top text-white py-2 mt-2 space-y-2 ${activeDropdown === 'services' ? 'scale-y-full duration-300' : 'scale-y-0 duration-300'}`}>
+                            <Link onClick={toggleMenu} to="/" className="block text-xl my-5 mx-3  px-4 py-2 hover:text-gray-300">
                                 শিক্ষক শিক্ষিকার তথ্য
                             </Link>
-                            <Link to="/" className="block px-4 py-2 hover:text-gray-300">
+                            <Link onClick={toggleMenu} to="/" className="block text-xl my-5 mx-3  px-4 py-2 hover:text-gray-300">
                                 ছাত্র-ছাত্রীর তথ্য
                             </Link>
-                            <Link to="/" className="block px-4 py-2 hover:text-gray-300">
+                            <Link onClick={toggleMenu} to="/" className="block text-xl my-5 mx-3  px-4 py-2 hover:text-gray-300">
                                 ম্যানেজিং কমিটি
                             </Link>
                         </div>
 
                     </div>
-                    <div className="relative group">
+                    <div className="relative group ">
                         <span
-                            onClick={toggleIntro}
-                            className="flex items-center px-4 py-2 text-white hover:text-gray-300 cursor-pointer select-none"
+                            onClick={() => toggleDropdown('intro')}
+                            className="flex items-center text-xl bg-gray-500/30 mx-3 my-5 px-4 py-2 text-white hover:text-gray-300 cursor-pointer select-none"
                         >
                             পরিচিতি <IoIosArrowDown />
                         </span>
                         {/* Dropdown Menu */}
 
-                        <div className={`absolute z-50   top-full left-0 bg-[#DAA520] shadow-xl rounded-lg origin-top text-white py-2 mt-2 space-y-2 ${isIntroOpen ? 'scale-y-full duration-300' : 'scale-y-0'}`}>
-                            <Link to="/" className="block px-4 py-2 hover:text-gray-300">
+                        <div className={`absolute z-50   top-full left-0 bg-black rounded-lg origin-top text-white py-2 mt-2 space-y-2 ${activeDropdown === 'intro' ? 'scale-y-full duration-300' : 'scale-y-0 duration-300'}`}>
+                            <Link onClick={toggleMenu} to="/" className="block text-xl my-5 mx-3  px-4 py-2 hover:text-gray-300">
                                 এক নজরে মাদরাসা
                             </Link>
-                            <Link to="/" className="block px-4 py-2 hover:text-gray-300">
+                            <Link onClick={toggleMenu} to="/" className="block text-xl my-5 mx-3  px-4 py-2 hover:text-gray-300">
                                 অধ্যক্ষের বাণী
                             </Link>
-                            <Link to="/" className="block px-4 py-2 hover:text-gray-300">
+                            <Link onClick={toggleMenu} to="/" className="block text-xl my-5 mx-3  px-4 py-2 hover:text-gray-300">
                                 কমপ্লেক্স
                             </Link>
                         </div>
 
                     </div>
-                    <div className="relative group">
+                    <div className="relative group ">
                         <span
-                            onClick={toggleAcademic}
-                            className="flex items-center px-4 py-2 text-white hover:text-gray-300 cursor-pointer select-none"
+                            onClick={() => toggleDropdown('academic')}
+                            className="flex items-center text-xl bg-gray-500/30 mx-3 my-5 px-4 py-2 text-white hover:text-gray-300 cursor-pointer select-none"
                         >
                             একাডেমিক  <IoIosArrowDown />
                         </span>
                         {/* Dropdown Menu */}
 
-                        <div className={`absolute z-50   top-full left-0 bg-[#DAA520] shadow-xl rounded-lg origin-top text-white py-2 mt-2 space-y-2 ${isAcademicOpen ? 'scale-y-full duration-300' : 'scale-y-0'}`}>
+                        <div className={`absolute z-50   top-full left-0 bg-black rounded-lg origin-top text-white py-2 mt-2 space-y-2 ${activeDropdown === 'academic' ? 'scale-y-full duration-300' : 'scale-y-0 duration-300'}`}>
 
-                            <Link to="/" className="block px-4 py-2 hover:text-gray-300">
+                            <Link onClick={toggleMenu} to="/" className="block text-xl my-5 mx-3  px-4 py-2 hover:text-gray-300">
                                 পাঠক্রম
                             </Link>
-                            <Link to="/" className="block px-4 py-2 hover:text-gray-300">
+                            <Link onClick={toggleMenu} to="/" className="block text-xl my-5 mx-3  px-4 py-2 hover:text-gray-300">
                                 পরিক্ষার ফলাফল
                             </Link>
-                            <Link to="/" className="block px-4 py-2 hover:text-gray-300">
+                            <Link onClick={toggleMenu} to="/" className="block text-xl my-5 mx-3  px-4 py-2 hover:text-gray-300">
                                 ছুটির তালিকা
                             </Link>
-                            <Link to="/" className="block px-4 py-2 hover:text-gray-300">
+                            <Link onClick={toggleMenu} to="/" className="block text-xl my-5 mx-3  px-4 py-2 hover:text-gray-300">
                                 পরীক্ষার রুটিন
                             </Link>
                         </div>
 
                     </div>
-                    <Link to="/" className="block px-4 py-2 text-white hover:text-gray-300">
+                    <Link onClick={toggleMenu} to="/" className="block text-xl my-5 bg-gray-500/30 mx-3  px-4 py-2 text-white hover:text-gray-300">
                         ভর্তি
                     </Link>
-                    <Link to="/" className="block px-4 py-2 text-white hover:text-gray-300">
+                    <Link onClick={toggleMenu} to="/" className="block text-xl my-5 bg-gray-500/30 mx-3  px-4 py-2 text-white hover:text-gray-300">
                         লিল্লাহ বোর্ডিং
                     </Link>
 
 
                     {/* End of Dropdown */}
-                    <Link to="/" className="block px-4 py-2 text-white hover:text-gray-300">
+                    <Link onClick={toggleMenu} to="/" className="block text-xl my-5 bg-gray-500/30 mx-3  px-4 py-2 text-white hover:text-gray-300">
                         পাঠ্যসূচী(রুটিন)
                     </Link>
-                    <Link to="/" className="block px-4 py-2 text-white hover:text-gray-300">
+                    <Link onClick={toggleMenu} to="/" className="block text-xl my-5 bg-gray-500/30 mx-3  px-4 py-2 text-white hover:text-gray-300">
                         ই-লাইব্রেরী
                     </Link>
-                    <Link to="/contact" className="block px-4 py-2 text-white hover:text-gray-300">
+                    <Link onClick={toggleMenu} to="/contact" className="block text-xl my-5 bg-gray-500/30 mx-3  px-4 py-2 text-white hover:text-gray-300">
                         যোগাযোগ
                     </Link>
                 </div>
