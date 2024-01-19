@@ -321,7 +321,7 @@ const Others = () => {
                             ></CampusImageCard>)
                         }
                     </div>
-                    <div className=' w-full'>
+                    <div className=' w-full grid grid-cols-1 gap-5'>
                         {
                             headline.map(singleHeadline=><HeadlineCard
                             key={singleHeadline._id}

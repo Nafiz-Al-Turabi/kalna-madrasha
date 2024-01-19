@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { AiOutlineClose } from "react-icons/ai";
 import { CiMenuBurger } from "react-icons/ci";
 import { IoIosArrowDown } from "react-icons/io";
@@ -11,6 +11,25 @@ const Navbar = () => {
     const [isAcademicOpen, setAcademicOpen] = useState(false);
     const [isAdmissionOpen, setAdmissionOpen] = useState(false);
     const [isHallOpen, setHallOpen] = useState(false);
+    const [isSticky, setIsSticky] = useState(false);
+
+    const handleScroll = () => {
+        // Adjust the scroll threshold based on your design
+        const scrollThreshold = 350;
+    
+        // Check if the scroll position is beyond the threshold
+        setIsSticky(window.scrollY > scrollThreshold);
+      };
+    
+      useEffect(() => {
+        // Add scroll event listener to handle scroll position
+        window.addEventListener('scroll', handleScroll);
+    
+        // Cleanup the event listener when the component is unmounted
+        return () => {
+          window.removeEventListener('scroll', handleScroll);
+        };
+      }, []);
 
     const toggleMenu = () => {
         setIsOpen(!isOpen);
@@ -31,9 +50,24 @@ const Navbar = () => {
     const toggleHall = () => {
         setHallOpen(!isHallOpen);
     };
+    // disable scrolling for mobile menu
+    useEffect(() => {
+        if (isOpen) {
+          // Disable scrolling when the mobile menu is open
+          document.body.style.overflow = 'hidden';
+        } else {
+          // Enable scrolling when the mobile menu is closed
+          document.body.style.overflow = 'auto';
+        }
+    
+        // Cleanup to enable scrolling when the component is unmounted
+        return () => {
+          document.body.style.overflow = 'auto';
+        };
+      }, [isOpen]);
 
     return (
-        <nav className="bg-[#DAA520] p-4 z-40">
+        <nav className={`p-4 z-40 transition-all duration-300 bg-[#DAA520] ease-in-out ${isSticky ? 'fixed top-0 w-full bg-[#DAA520] shadow-lg' : ''}`}>
             <div className="max-w-7xl mx-auto flex justify-between md:justify-center ">
                 {/* Logo */}
                 <div className="md:hidden text-white text-lg font-bold uppercase">
@@ -179,7 +213,7 @@ const Navbar = () => {
 
                 {/* Mobile Menu */}
                 <div
-                    className={`lg:hidden absolute z-50 top-[61px] left-0  w-full bg-[#DAA520]  transform origin-top transition-transform ${isOpen ? 'scale-y-100' : 'scale-y-0'
+                    className={`lg:hidden h-full absolute z-50 top-[61px] left-0  w-full bg-[#DAA520]  transform origin-top transition-transform ${isOpen ? 'scale-y-100' : 'scale-y-0'
                         }`}
                 >
                     <Link to="/" className="block px-4 py-2 text-white hover:text-gray-300" >

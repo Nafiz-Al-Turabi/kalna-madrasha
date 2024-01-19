@@ -25,7 +25,7 @@ const ImageSlider = ({ images, currentIndex, onImageClick }) => {
                     <img
                         key={index}
                         src={image}
-                        alt={`Image ${index + 1}`}
+                        alt={`http://localhost:5000/getimage?path=${images.imagePath} ${index + 1}`}
                         className={`absolute w-full h-full object-cover ${index === currentIndex ? 'opacity-100 duration-500' : 'opacity-0 duration-500'
                             } transition-opacity duration-500 cursor-pointer`}
                         onClick={onImageClick}
