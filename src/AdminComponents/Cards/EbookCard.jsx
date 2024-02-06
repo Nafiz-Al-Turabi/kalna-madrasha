@@ -33,7 +33,7 @@ const EbookCard = ({ebookData,onDelete}) => {
                     style={{ aspectRatio: '16/9' }} 
                 />
             </div>
-            <h1 className='text-center'>Book Name</h1>
+            <h1 className='text-center'>{ebookData.book_name}</h1>
             <div className=''>
                 <button  onClick={openModal} className='px-5 w-full bg-red-500 hover:bg-red-600 duration-300 text-white'>Delete</button>
             </div>

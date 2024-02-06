@@ -15,6 +15,8 @@ import Contact from "../Pages/Contact/Contact";
 import AddNews from "../AdminComponents/AddNews/AddNews";
 import AcademicResult from "../Pages/Result/AcademicResult";
 import Others from "../AdminComponents/Others/Others";
+import ELibrary from "../Components/ELibrary/ELibrary";
+import StudentsInformation from "../Components/StudentsInformation/StudentsInformation";
 
 export const router = createBrowserRouter([
   {
@@ -32,6 +34,14 @@ export const router = createBrowserRouter([
       {
         path:'/contact',
         element:<Contact></Contact>
+      },
+      {
+        path:'elibrary',
+        element:<ELibrary></ELibrary>
+      },
+      {
+        path:'studentsInformation',
+        element:<StudentsInformation></StudentsInformation>
       }
     ]
 

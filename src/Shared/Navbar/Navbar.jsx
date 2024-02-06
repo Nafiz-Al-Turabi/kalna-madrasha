@@ -3,6 +3,7 @@ import { AiOutlineClose } from "react-icons/ai";
 import { CiMenuBurger } from "react-icons/ci";
 import { IoIosArrowDown } from "react-icons/io";
 import { Link } from 'react-router-dom';
+import logo from '../../assets/logo.png'
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -76,11 +77,11 @@ const Navbar = () => {
     }, [isOpen]);
 
     return (
-        <nav className={`p-4 z-40 transition-all duration-300 bg-[#DAA520] ease-in-out ${isSticky ? 'fixed top-0 w-full bg-[#DAA520] shadow-lg' : ''}`}>
+        <nav className={`p-4 z-40 transition-all duration-300 bg-[#DAA520] ease-in-out ${isSticky ? 'md:fixed top-0 w-full lg:bg-[#DAA520] shadow-lg' : ''}`}>
             <div className="max-w-7xl mx-auto flex justify-between md:justify-center ">
                 {/* Logo */}
                 <div className="md:hidden text-white text-lg font-bold uppercase">
-                    <Link onClick={() => toggleDropdown('')} to="/"  >কালনা আমিনিয়া ফাজিল (ডিগ্রী) মাদরাসা</Link>
+                    <Link onClick={() => toggleDropdown('')} to="/"  >কালনা আমিনিয়া ফাজিল মাদরাসা</Link>
                 </div>
 
                 {/* Mobile Menu Toggler */}
@@ -142,7 +143,7 @@ const Navbar = () => {
                             <Link onClick={() => toggleDropdown('')} to="/" className="block px-4 py-2 hover:text-gray-300">
                                 শিক্ষক শিক্ষিকার তথ্য
                             </Link>
-                            <Link onClick={() => toggleDropdown('')} to="/" className="block px-4 py-2 hover:text-gray-300">
+                            <Link onClick={() => toggleDropdown('')} to="/studentsInformation" className="block px-4 py-2 hover:text-gray-300">
                                 ছাত্র-ছাত্রীর তথ্য
                             </Link>
                             <Link onClick={() => toggleDropdown('')} to="/" className="block px-4 py-2 hover:text-gray-300">
@@ -209,7 +210,7 @@ const Navbar = () => {
                         লিল্লাহ বোর্ডিং
                     </Link>
 
-                    <Link onClick={() => toggleDropdown('')} to="/" className="text-white hover:text-gray-300">
+                    <Link onClick={() => toggleDropdown('')} to="/elibrary" className="text-white hover:text-gray-300">
                         ই-লাইব্রেরী
                     </Link>
                     <Link onClick={() => toggleDropdown('')} to="/contact" className="text-white hover:text-gray-300">
@@ -244,7 +245,7 @@ const Navbar = () => {
                             <Link onClick={toggleMenu} to="/" className="block text-xl my-5 mx-3  px-4 py-2 hover:text-gray-300">
                                 শিক্ষক শিক্ষিকার তথ্য
                             </Link>
-                            <Link onClick={toggleMenu} to="/" className="block text-xl my-5 mx-3  px-4 py-2 hover:text-gray-300">
+                            <Link onClick={toggleMenu} to="/studentsInformation" className="block text-xl my-5 mx-3  px-4 py-2 hover:text-gray-300">
                                 ছাত্র-ছাত্রীর তথ্য
                             </Link>
                             <Link onClick={toggleMenu} to="/" className="block text-xl my-5 mx-3  px-4 py-2 hover:text-gray-300">
@@ -313,7 +314,7 @@ const Navbar = () => {
                     <Link onClick={toggleMenu} to="/" className="block text-xl my-5 bg-gray-500/30 mx-3  px-4 py-2 text-white hover:text-gray-300">
                         পাঠ্যসূচী(রুটিন)
                     </Link>
-                    <Link onClick={toggleMenu} to="/" className="block text-xl my-5 bg-gray-500/30 mx-3  px-4 py-2 text-white hover:text-gray-300">
+                    <Link onClick={toggleMenu} to="/elibrary" className="block text-xl my-5 bg-gray-500/30 mx-3  px-4 py-2 text-white hover:text-gray-300">
                         ই-লাইব্রেরী
                     </Link>
                     <Link onClick={toggleMenu} to="/contact" className="block text-xl my-5 bg-gray-500/30 mx-3  px-4 py-2 text-white hover:text-gray-300">

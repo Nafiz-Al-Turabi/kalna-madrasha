@@ -22,7 +22,7 @@ const Headline = () => {
 
     return (
         <div className='py-2'>
-            <Marquee speed={100}>
+            <Marquee speed={50}>
                 {headline.map((single, index) => (
                     <p key={index} className='flex items-center'>
                         <FaGg className='text-3xl mx-5 text-[#DAA520]' /> {single.headline}
