@@ -28,7 +28,9 @@ const TeacherCard = ({ teacherData, onDelete }) => {
     return (
         <div className=' flex bg-white rounded-lg shadow-lg overflow-hidden'>
             <div className='flex justify-center overflow-hidden'>
-                <img src={`http://localhost:5000/getimage?path=${imagePath}`} className='w-40 object-cover rounded-l-lg ' alt="" />
+                <img src={`http://localhost:5000/getimage?path=${imagePath}`}
+                    style={{ aspectRatio: '16/8' }}
+                    className='w-40 object-cover rounded-l-lg ' alt="" />
             </div>
             <div className='text-gray-700 p-3'>
                 <h1 className='text-xl font-bold'>{name}</h1>

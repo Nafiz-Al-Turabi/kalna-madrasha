@@ -9,7 +9,7 @@ const MadrashaName2 = () => {
                 <h1 className='text-xl font-extrabold'>কালনা আমিনিয়া ফাজিল (ডিগ্রী) মাদরাসা</h1>
                 <h2 className=' font-extrabold'>KALNA AMINIA FAZIL (DEGREE) MADRASAH</h2>
                 <h3 className='text-lg font-bold'>স্থাপিত (১৯৩৫) || EIIN:117213 </h3>
-                <h3 className='text-lg font-bold'>পোস্টঃ অন্তাবুনিয়া, উপজেলাঃ কয়রা, জেলাঃ খুলনা।</h3>
+                <h3 className='text-base font-bold'>পোস্টঃ অন্তাবুনিয়া, উপজেলাঃ কয়রা, জেলাঃ খুলনা।</h3>
             </div>
         </div>
     );

@@ -5,27 +5,35 @@ import { FaSearch } from 'react-icons/fa';
 const StudentsInformation = () => {
     const [students, setStudents] = useState([]);
     const [searchInput, setSearchInput] = useState('');
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 20; // number of items per page
 
     useEffect(() => {
         fetchStudentData();
-    }, [searchInput]);
+    }, [searchInput, currentPage]);
 
     const fetchStudentData = async () => {
         try {
             const response = await axiosInstance.get('/students');
             const data = response.data;
-            setStudents(data);
+            // Apply search filter
+            const filteredResults = data.filter(student =>
+                student.name.toLowerCase().includes(searchInput.toLowerCase()) ||
+                student.roll.includes(searchInput)
+            );
+            // Apply pagination
+            const startIndex = (currentPage - 1) * itemsPerPage;
+            const endIndex = startIndex + itemsPerPage;
+            const paginatedResults = filteredResults.slice(startIndex, endIndex);
+            setStudents(paginatedResults);
         } catch (error) {
             console.error('Error fetching data:', error);
         }
     };
 
     const handleSearch = () => {
-        const filteredResults = students.filter(student =>
-            student.name.toLowerCase().includes(searchInput.toLowerCase()) ||
-            student.roll.includes(searchInput)
-        );
-        setStudents(filteredResults);
+        setCurrentPage(1); // Reset to the first page when searching
+        fetchStudentData();
     };
 
     return (
@@ -39,7 +47,7 @@ const StudentsInformation = () => {
                     value={searchInput}
                     onChange={(e) => setSearchInput(e.target.value)}
                 />
-                <button className='p-2 bg-gray-100' onClick={handleSearch}>
+                <button className='p-2 bg-[#DAA520]' onClick={handleSearch}>
                     <FaSearch />
                 </button>
             </div>
@@ -57,6 +65,23 @@ const StudentsInformation = () => {
                             </div>
                         </div>
                     ))}
+                </div>
+                {/* Pagination Controls */}
+                <div className="flex justify-between mt-5">
+                    <button
+                        className={`mr-2 ${currentPage === 1 ? 'cursor-not-allowed' : 'cursor-pointer'}`}
+                        onClick={() => setCurrentPage(currentPage - 1)}
+                        disabled={currentPage === 1}
+                    >
+                        Previous
+                    </button>
+                    <button
+                        className={`ml-2 ${students.length < itemsPerPage ? 'cursor-not-allowed' : 'cursor-pointer'}`}
+                        onClick={() => setCurrentPage(currentPage + 1)}
+                        disabled={students.length < itemsPerPage}
+                    >
+                        Next
+                    </button>
                 </div>
             </div>
         </div>

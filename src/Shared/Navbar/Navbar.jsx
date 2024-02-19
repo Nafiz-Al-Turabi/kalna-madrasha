@@ -4,14 +4,15 @@ import { CiMenuBurger } from "react-icons/ci";
 import { IoIosArrowDown } from "react-icons/io";
 import { Link } from 'react-router-dom';
 import logo from '../../assets/logo.png'
+import './Navbar.css'
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
-    const [isServicesOpen, setIsServicesOpen] = useState(false);
-    const [isIntroOpen, setIntroOpen] = useState(false);
-    const [isAcademicOpen, setAcademicOpen] = useState(false);
-    const [isAdmissionOpen, setAdmissionOpen] = useState(false);
-    const [isHallOpen, setHallOpen] = useState(false);
+    // const [isServicesOpen, setIsServicesOpen] = useState(false);
+    // const [isIntroOpen, setIntroOpen] = useState(false);
+    // const [isAcademicOpen, setAcademicOpen] = useState(false);
+    // const [isAdmissionOpen, setAdmissionOpen] = useState(false);
+    // const [isHallOpen, setHallOpen] = useState(false);
     const [isSticky, setIsSticky] = useState(false);
     const [activeDropdown, setActiveDropdown] = useState(null);
 
@@ -77,7 +78,7 @@ const Navbar = () => {
     }, [isOpen]);
 
     return (
-        <nav className={`p-4 z-40 transition-all duration-300 bg-[#DAA520] ease-in-out ${isSticky ? 'md:fixed top-0 w-full lg:bg-[#DAA520] shadow-lg' : ''}`}>
+        <nav className={`p-4 z-40 transition-all duration-300 bg-[#DAA520] ease-in-out ${isSticky ? 'navbar md:fixed top-0 w-full lg:bg-[#DAA520] shadow-lg' : ''}`}>
             <div className="max-w-7xl mx-auto flex justify-between md:justify-center ">
                 {/* Logo */}
                 <div className="md:hidden text-white text-lg font-bold uppercase">
@@ -140,7 +141,7 @@ const Navbar = () => {
                         {/* Dropdown Menu */}
 
                         <div className={`absolute z-50 w-60 top-full left-0 bg-[#DAA520] shadow-xl rounded-lg origin-top text-white py-2 mt-2 space-y-2 ${activeDropdown === 'services' ? 'scale-y-full duration-300' : 'scale-y-0 duration-300'}`}>
-                            <Link onClick={() => toggleDropdown('')} to="/" className="block px-4 py-2 hover:text-gray-300">
+                            <Link onClick={() => toggleDropdown('')} to="/teachers" className="block px-4 py-2 hover:text-gray-300">
                                 শিক্ষক শিক্ষিকার তথ্য
                             </Link>
                             <Link onClick={() => toggleDropdown('')} to="/studentsInformation" className="block px-4 py-2 hover:text-gray-300">
@@ -242,7 +243,7 @@ const Navbar = () => {
                         {/* Dropdown Menu */}
 
                         <div className={`absolute z-50  top-full left-0 bg-black rounded-lg origin-top text-white py-2 mt-2 space-y-2 ${activeDropdown === 'services' ? 'scale-y-full duration-300' : 'scale-y-0 duration-300'}`}>
-                            <Link onClick={toggleMenu} to="/" className="block text-xl my-5 mx-3  px-4 py-2 hover:text-gray-300">
+                            <Link onClick={toggleMenu} to="/teachers" className="block text-xl my-5 mx-3  px-4 py-2 hover:text-gray-300">
                                 শিক্ষক শিক্ষিকার তথ্য
                             </Link>
                             <Link onClick={toggleMenu} to="/studentsInformation" className="block text-xl my-5 mx-3  px-4 py-2 hover:text-gray-300">
@@ -290,7 +291,7 @@ const Navbar = () => {
                             <Link onClick={toggleMenu} to="/" className="block text-xl my-5 mx-3  px-4 py-2 hover:text-gray-300">
                                 পাঠক্রম
                             </Link>
-                            <Link onClick={toggleMenu} to="/" className="block text-xl my-5 mx-3  px-4 py-2 hover:text-gray-300">
+                            <Link onClick={toggleMenu} to="/academicResult" className="block text-xl my-5 mx-3  px-4 py-2 hover:text-gray-300">
                                 পরিক্ষার ফলাফল
                             </Link>
                             <Link onClick={toggleMenu} to="/" className="block text-xl my-5 mx-3  px-4 py-2 hover:text-gray-300">

@@ -17,6 +17,7 @@ import AcademicResult from "../Pages/Result/AcademicResult";
 import Others from "../AdminComponents/Others/Others";
 import ELibrary from "../Components/ELibrary/ELibrary";
 import StudentsInformation from "../Components/StudentsInformation/StudentsInformation";
+import Teachers from "../Components/Teachers/Teachers";
 
 export const router = createBrowserRouter([
   {
@@ -42,6 +43,10 @@ export const router = createBrowserRouter([
       {
         path:'studentsInformation',
         element:<StudentsInformation></StudentsInformation>
+      },
+      {
+        path:'teachers',
+        element:<Teachers></Teachers>
       }
     ]
 
