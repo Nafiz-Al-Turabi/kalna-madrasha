@@ -81,10 +81,10 @@ const CampusImage = () => {
           </button>
         </div>
       </div>
-      <div className="flex flex-col ml-4   pt-64 lg:pt-0">
-        <h1 className="text-[#DAA520] text-2xl font-bold mb-4">নোটিশ বোর্ড</h1>
-        <div className="flex text-xs mt-2 space-x-4 ">
-          {['all', 'দাখিল', 'আলিম', 'ফাজিল', 'কামিল'].map((category) => (
+      <div className="flex flex-col mx-4   pt-64 lg:pt-0">
+        <h1 className="text-[#DAA520] text-center lg:text-left text-3xl md:text-2xl font-bold mb-4">নোটিশ বোর্ড</h1>
+        <div className="grid grid-cols-3 text-xs  gap-2">
+          {['all','ইবতেদায়ী', 'দাখিল', 'আলিম', 'ফাজিল', 'কামিল'].map((category) => (
             <button
               key={category}
               className={`text-gray-700 px-4 py-2 focus:outline-none transition duration-300 ${activeCategory === category

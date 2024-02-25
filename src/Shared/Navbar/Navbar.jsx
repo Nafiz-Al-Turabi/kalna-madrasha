@@ -1,20 +1,25 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { AiOutlineClose } from "react-icons/ai";
 import { CiMenuBurger } from "react-icons/ci";
 import { IoIosArrowDown } from "react-icons/io";
 import { Link } from 'react-router-dom';
 import logo from '../../assets/logo.png'
 import './Navbar.css'
+import AdminLogin from '../../Components/AdminLogin/AdminLogin';
+import { useAuth } from '../../Provider/AuthProvider';
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
-    // const [isServicesOpen, setIsServicesOpen] = useState(false);
-    // const [isIntroOpen, setIntroOpen] = useState(false);
-    // const [isAcademicOpen, setAcademicOpen] = useState(false);
-    // const [isAdmissionOpen, setAdmissionOpen] = useState(false);
-    // const [isHallOpen, setHallOpen] = useState(false);
     const [isSticky, setIsSticky] = useState(false);
     const [activeDropdown, setActiveDropdown] = useState(null);
+    const [isLoginOpen, setIsLoginOpen] = useState(false);
+    const dropdownRef = useRef(null);
+    const { isLoggedIn } = useAuth();
+
+
+    const toggleLoginPopup = () => {
+        setIsLoginOpen(!isLoginOpen);
+    };
 
     const handleScroll = () => {
         // Adjust the scroll threshold based on your design
@@ -77,8 +82,9 @@ const Navbar = () => {
         };
     }, [isOpen]);
 
+
     return (
-        <nav className={`p-4 z-40 transition-all duration-300 bg-[#DAA520] ease-in-out ${isSticky ? 'navbar md:fixed top-0 w-full lg:bg-[#DAA520] shadow-lg' : ''}`}>
+        <nav className={`p-4 z-40 transition-all duration-300 bg-[#DAA520] ease-in-out ${isSticky ? 'navbar md:fixed  top-0 w-full lg:bg-[#DAA520] shadow-lg' : ''}`}>
             <div className="max-w-7xl mx-auto flex justify-between md:justify-center ">
                 {/* Logo */}
                 <div className="md:hidden text-white text-lg font-bold uppercase">
@@ -88,7 +94,7 @@ const Navbar = () => {
                 {/* Mobile Menu Toggler */}
                 <div className="block lg:hidden">
                     <button
-                       onClick={(event) => toggleMenu(event)}
+                        onClick={(event) => toggleMenu(event)}
                         className="text-white hover:text-gray-300 focus:outline-none"
                     >
                         {isOpen ? (
@@ -147,7 +153,7 @@ const Navbar = () => {
                             <Link onClick={() => toggleDropdown('')} to="/studentsInformation" className="block px-4 py-2 hover:text-gray-300">
                                 ছাত্র-ছাত্রীর তথ্য
                             </Link>
-                            <Link onClick={() => toggleDropdown('')} to="/" className="block px-4 py-2 hover:text-gray-300">
+                            <Link onClick={() => toggleDropdown('')} to="/committe" className="block px-4 py-2 hover:text-gray-300">
                                 ম্যানেজিং কমিটি
                             </Link>
                         </div>
@@ -207,7 +213,7 @@ const Navbar = () => {
                     <Link onClick={() => toggleDropdown('')} to="http://admission.iau.edu.bd/" target='blank' className="text-white hover:text-gray-300">
                         ভর্তি
                     </Link>
-                    <Link onClick={() => toggleDropdown('')} to="/" className="text-white hover:text-gray-300">
+                    <Link onClick={() => toggleDropdown('')} to="/lillahBoarding" className="text-white hover:text-gray-300">
                         লিল্লাহ বোর্ডিং
                     </Link>
 
@@ -217,9 +223,13 @@ const Navbar = () => {
                     <Link onClick={() => toggleDropdown('')} to="/contact" className="text-white hover:text-gray-300">
                         যোগাযোগ
                     </Link>
-                    <Link onClick={() => toggleDropdown('')} to="/admin/dashboard" className="text-white hover:text-gray-300">
-                        লগইন
-                    </Link>
+                    {isLoggedIn ?
+                        <Link to='/admin/dashboard' className="text-white bg-yellow-500 px-5 py-0.5 rounded cursor-pointer">Admin Panel</Link>
+                        :
+                        <buttom onClick={toggleLoginPopup} className="text-white bg-yellow-500 px-5 py-0.5 rounded cursor-pointer">
+                            লগইন
+                        </buttom>
+                    }
                 </div>
 
                 {/* Mobile Menu */}
@@ -227,7 +237,7 @@ const Navbar = () => {
                     className={`lg:hidden h-full absolute z-50 top-[61px] left-0  w-full bg-black  transform origin-top transition-transform ${isOpen ? 'scale-y-100' : 'scale-y-0'
                         }`}
                 >
-                    <Link onClick={toggleMenu}  to="/" className="block text-xl my-5 bg-gray-500/30 mx-3  px-4 py-2 text-white hover:text-gray-300" >
+                    <Link onClick={toggleMenu} to="/" className="block text-xl my-5 bg-gray-500/30 mx-3  px-4 py-2 text-white hover:text-gray-300" >
                         মূল পাতা
                     </Link>
 
@@ -249,7 +259,7 @@ const Navbar = () => {
                             <Link onClick={toggleMenu} to="/studentsInformation" className="block text-xl my-5 mx-3  px-4 py-2 hover:text-gray-300">
                                 ছাত্র-ছাত্রীর তথ্য
                             </Link>
-                            <Link onClick={toggleMenu} to="/" className="block text-xl my-5 mx-3  px-4 py-2 hover:text-gray-300">
+                            <Link onClick={toggleMenu} to="/committe" className="block text-xl my-5 mx-3  px-4 py-2 hover:text-gray-300">
                                 ম্যানেজিং কমিটি
                             </Link>
                         </div>
@@ -306,7 +316,7 @@ const Navbar = () => {
                     <Link onClick={toggleMenu} to="/" className="block text-xl my-5 bg-gray-500/30 mx-3  px-4 py-2 text-white hover:text-gray-300">
                         ভর্তি
                     </Link>
-                    <Link onClick={toggleMenu} to="/" className="block text-xl my-5 bg-gray-500/30 mx-3  px-4 py-2 text-white hover:text-gray-300">
+                    <Link onClick={toggleMenu} to="/lillahBoarding" className="block text-xl my-5 bg-gray-500/30 mx-3  px-4 py-2 text-white hover:text-gray-300">
                         লিল্লাহ বোর্ডিং
                     </Link>
 
@@ -323,6 +333,7 @@ const Navbar = () => {
                     </Link>
                 </div>
             </div>
+            <AdminLogin isOpen={isLoginOpen} onClose={toggleLoginPopup} />
         </nav>
     );
 };

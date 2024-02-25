@@ -1,52 +1,43 @@
-import React, { createContext, useEffect, useState } from 'react';
-import {  createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import React, { createContext,useContext,useEffect,useState } from 'react';
 import app from '../firebase/firebase.config';
+import axiosInstance from '../Global/Axios/AxiosInstance';
 
 export const AuthContext = createContext()
-const auth = getAuth(app)
+export const useAuth = () => {
+    return useContext(AuthContext);
+};
 
 
 const AuthProvider = ({ children }) => {
-    const [user, setUser] = useState(null)
-    const [loading, setLoading] = useState(true)
-
-    const createNewUser = (email, password) => {
-        setLoading(true)
-        return createUserWithEmailAndPassword(auth, email, password)
-    }
-
-    const login = (email, password) => {
-        setLoading(true)
-        return signInWithEmailAndPassword(auth, email, password)
-    }
-
-    
-
-    
-
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
     useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, currentUser => {
-            setUser(currentUser);
-            setLoading(false)
-        })
-        return () => {
-            unsubscribe();
+        const token = localStorage.getItem('token');
+        if (token) {
+            // Token exists, so the user is logged in
+            setIsLoggedIn(true);
         }
-    }, [])
+    }, []);
 
-    const logOut = () => {
-        return signOut(auth)
-    }
+    const login = async (email, password) => {
+        try {
+            const response = await axiosInstance.post('/login', { email, password });
+            if (response.status === 200) {
+                localStorage.setItem('token', response.data.token);
+                setIsLoggedIn(true);
+            }
+        } catch (error) {
+            console.error('Login error:', error);
+        }
+    };
 
-    const info = {
-        user,
-        loading,
-        createNewUser,
-        login,
-        logOut
-    }
+    const logout = () => {
+        setIsLoggedIn(false);
+        localStorage.removeItem('token');
+        
+    };
+    
     return (
-        <AuthContext.Provider value={info}>
+        <AuthContext.Provider value={{ isLoggedIn, login, logout }}>
             {children}
         </AuthContext.Provider>
     );

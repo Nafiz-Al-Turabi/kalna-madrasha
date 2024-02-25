@@ -110,19 +110,11 @@ const AddNotice = () => {
                             className="w-full px-4 py-2 text-gray-500 shadow-inner p-3 bg-gray-100 focus:outline-none placeholder:text-base rounded"
                             required
                         >
-                            <option value="one">Class One</option>
-                            <option value="two">Class Two</option>
-                            <option value="three">Class Three</option>
-                            <option value="four">Class Four</option>
-                            <option value="five">Class Five</option>
-                            <option value="six">Class Six</option>
-                            <option value="seven">Class Seven</option>
-                            <option value="eight">Class Eight</option>
-                            <option value="nine">Class Nine</option>
-                            <option value="ten">Dakhil</option>
-                            <option value="alim">Alim</option>
-                            <option value="fazil">Fazil</option>
-                            <option value="kamil">Kamil</option>
+                            <option value="ইবতেদায়ী">ইবতেদায়ী</option>
+                            <option value="দাখিল">দাখিল</option>
+                            <option value="আলিম">আলিম</option>
+                            <option value="ফাজিল">ফাজিল</option>
+                            <option value="কামিল">কামিল</option>
                         </select>
                     </div>
                     <div className="mb-4">

@@ -1,18 +1,30 @@
 import React, { useState } from 'react';
-import { Link, Outlet } from 'react-router-dom';
+import { Link, Outlet, useNavigate } from 'react-router-dom';
 import { MdAdminPanelSettings, MdDashboard, MdOutlineTimeline } from "react-icons/md";
 import { FaBuffer, FaHouse, FaNewspaper, FaRegNewspaper, FaRegNoteSticky, FaUserGraduate, FaWatchmanMonitoring } from "react-icons/fa6";
 import { PiUsersFourBold } from "react-icons/pi";
 import { ImUserTie } from "react-icons/im";
 import ActiveAdminLink from '../../Components/ActiveAdminLink/ActiveAdminLink';
+import { useAuth } from '../../Provider/AuthProvider';
 
 
 const AdminPanel = () => {
+    const navigate=useNavigate()
+    const {logout}=useAuth();
     const [isSidebarOpen, setSidebarOpen] = useState(true); // Sidebar open by default on larger screens
 
     const toggleSidebar = () => {
         setSidebarOpen(!isSidebarOpen);
     };
+    const handleLogout = async () => {
+        try {
+            await logout();
+            navigate('/');
+        } catch (error) {
+            console.error('Logout error:', error);
+        }
+    };
+
 
     return (
         <div className={`flex  h-screen bg-gray-100 ${isSidebarOpen ? 'overflow-hidden' : ''}`}>
@@ -36,6 +48,7 @@ const AdminPanel = () => {
                 </div>
                 <hr className='my-5' />
                 <Link to='/' className='text-xl flex items-center p-2 bg-[#daa520]/20 rounded'><FaHouse className='mr-3' />Home</Link>
+                <button  onClick={handleLogout} className='w-full mt-2 text-center text-xl flex items-center p-2 bg-[#daa520] rounded'>Logout</button>
                 <button
                     className="lg:hidden text-gray-600 focus:outline-none"
                     onClick={toggleSidebar}

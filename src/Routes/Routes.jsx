@@ -18,6 +18,10 @@ import Others from "../AdminComponents/Others/Others";
 import ELibrary from "../Components/ELibrary/ELibrary";
 import StudentsInformation from "../Components/StudentsInformation/StudentsInformation";
 import Teachers from "../Components/Teachers/Teachers";
+import Committe from "../Components/Committe/Committe";
+import LillahBoarding from "../Components/LillahBoarding/LillahBoarding";
+import Signup from "../Components/Signup/Signup";
+import PrivateRouter from "../Components/PrivateRouter/PrivateRouter";
 
 export const router = createBrowserRouter([
   {
@@ -47,13 +51,25 @@ export const router = createBrowserRouter([
       {
         path:'teachers',
         element:<Teachers></Teachers>
+      },
+      {
+        path:'committe',
+        element:<Committe></Committe>
+      },
+      {
+        path:'lillahBoarding',
+        element:<LillahBoarding></LillahBoarding>
+      },
+      {
+        path:'signup',
+        element:<Signup></Signup>
       }
     ]
 
   },
   {
     path: '/admin',
-    element: <AdminPanel></AdminPanel>,
+    element: <PrivateRouter><AdminPanel></AdminPanel></PrivateRouter>,
     children: [
       {
         path: 'dashboard',
