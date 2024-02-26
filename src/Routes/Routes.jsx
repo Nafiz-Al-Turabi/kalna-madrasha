@@ -22,6 +22,7 @@ import Committe from "../Components/Committe/Committe";
 import LillahBoarding from "../Components/LillahBoarding/LillahBoarding";
 import Signup from "../Components/Signup/Signup";
 import PrivateRouter from "../Components/PrivateRouter/PrivateRouter";
+import NoticeDetails from "../Components/NoticeDetails/NoticeDetails";
 
 export const router = createBrowserRouter([
   {
@@ -63,6 +64,10 @@ export const router = createBrowserRouter([
       {
         path:'signup',
         element:<Signup></Signup>
+      },
+      {
+        path:'noticeDetails/:id',
+        element:<NoticeDetails></NoticeDetails>
       }
     ]
 

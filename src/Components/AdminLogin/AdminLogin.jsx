@@ -88,6 +88,9 @@ const AdminLogin = ({ isOpen, onClose }) => {
                                                 Sign in
                                             </button>
                                         </div>
+                                        {error && (
+                <p className="text-red-500 text-sm">{error}</p>
+            )}
                                     </form>
                                 </div>
                             </div>

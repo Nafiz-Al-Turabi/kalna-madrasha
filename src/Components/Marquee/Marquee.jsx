@@ -14,7 +14,6 @@ const Headline = () => {
         try {
             const response = await axiosInstance.get('/headline');
             setHeadline(response.data);
-            console.log(response.data);
         } catch (error) {
             console.error('failed to fetch Headline', error);
         }

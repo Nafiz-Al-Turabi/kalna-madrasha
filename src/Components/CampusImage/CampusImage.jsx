@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axiosInstance from '../../Global/Axios/AxiosInstance';
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
 const CampusImage = () => {
   const [campusImages, setCampusImages] = useState([]);
@@ -42,10 +43,17 @@ const CampusImage = () => {
   const [activeCategory, setActiveCategory] = useState('all');
 
   useEffect(() => {
-    fetch('notice.json')
-      .then(ress => ress.json())
-      .then(data => setNotices(data))
-  }, []);
+    fetchData();
+}, []);
+
+const fetchData = async () => {
+    try {
+        const response = await axiosInstance.get('/notices');
+        setNotices(response.data);
+    } catch (error) {
+        console.error('Error fetching notices:', error);
+    }
+}
 
   const handleCategoryChange = (category) => {
     setActiveCategory(category);
@@ -97,7 +105,7 @@ const CampusImage = () => {
             </button>
           ))}
         </div>
-        <div className="mt-4 custom-scrollbar h-96 w-96 lg:w-96 overflow-y-auto overflow-x-auto">
+        <div className="mt-4 custom-scrollbar h-[346px] w-96 lg:w-96 overflow-y-auto overflow-x-auto">
           {sortedNotices
             .filter(
               (notice) => activeCategory === 'all' || notice.category === activeCategory
@@ -110,7 +118,7 @@ const CampusImage = () => {
                   </div>
                   <div>
                     <h3 className="">{notice.title}</h3>
-                    <button className='text-xs text-green-500'>নোটিশ দেখুন</button>
+                    <Link to={`/noticeDetails/${notice._id}`} className='text-xs text-green-500'>নোটিশ দেখুন</Link>
                   </div>
                 </div>
               </div>

@@ -224,7 +224,7 @@ const Navbar = () => {
                         যোগাযোগ
                     </Link>
                     {isLoggedIn ?
-                        <Link to='/admin/dashboard' className="text-white bg-yellow-500 px-5 py-0.5 rounded cursor-pointer">Admin Panel</Link>
+                        <Link to='/admin/dashboard' className="text-white bg-yellow-500 px-5 py-0.5 rounded cursor-pointer">Admin Dashbord</Link>
                         :
                         <buttom onClick={toggleLoginPopup} className="text-white bg-yellow-500 px-5 py-0.5 rounded cursor-pointer">
                             লগইন
