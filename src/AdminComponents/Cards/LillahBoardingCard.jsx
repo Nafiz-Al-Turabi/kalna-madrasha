@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import DeleteModal from '../Modal/DeleteModal/DeleteModal';
 import axiosInstance from '../../Global/Axios/AxiosInstance';
+import DeleteModal from '../Modal/DeleteModal/DeleteModal';
 
-const CampusImageCard = ({ campusData,onDelete }) => {
+const LillahBoardingCard = ({lillahImage, onDelete}) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const openModal = () => {
@@ -17,17 +17,17 @@ const CampusImageCard = ({ campusData,onDelete }) => {
             // Close the modal
             closeModal();
 
-            await axiosInstance.delete(`/campusimages/${campusData._id}`)
-            onDelete(campusData._id)
+            await axiosInstance.delete(`/lillahBoardingimages/${lillahImage._id}`)
+            onDelete(lillahImage._id)
         } catch (error) {
-            console.error('Failed to delete campus image:', error);
+            console.error('Failed to delete lillah image:', error);
         }
     }
     return (
-        <div className='bg-white '>
+        <div className='bg-white rounded-full '>
             <div className='relative'>
                 <img
-                    src={`http://localhost:5000/getimage?path=${campusData.imagePath}`}
+                    src={`http://localhost:5000/getimage?path=${lillahImage.imagePath}`}
                     alt=""
                     className='w-full h-full object-cover'
                     style={{ aspectRatio: '16/25' }} // You can adjust the aspect ratio as needed
@@ -39,4 +39,4 @@ const CampusImageCard = ({ campusData,onDelete }) => {
     );
 };
 
-export default CampusImageCard;
+export default LillahBoardingCard;

@@ -23,6 +23,8 @@ import LillahBoarding from "../Components/LillahBoarding/LillahBoarding";
 import Signup from "../Components/Signup/Signup";
 import PrivateRouter from "../Components/PrivateRouter/PrivateRouter";
 import NoticeDetails from "../Components/NoticeDetails/NoticeDetails";
+import NewsDetails from "../Components/News/NewsDetails";
+import IntroductionOfMadrasha from "../Components/IntroductionOfMadrasha/IntroductionOfMadrasha";
 
 export const router = createBrowserRouter([
   {
@@ -34,40 +36,48 @@ export const router = createBrowserRouter([
         element: <Home></Home>
       },
       {
-        path:'/academicResult',
-        element:<AcademicResult></AcademicResult>
+        path: '/academicResult',
+        element: <AcademicResult></AcademicResult>
       },
       {
-        path:'/contact',
-        element:<Contact></Contact>
+        path: '/contact',
+        element: <Contact></Contact>
       },
       {
-        path:'elibrary',
-        element:<ELibrary></ELibrary>
+        path: 'elibrary',
+        element: <ELibrary></ELibrary>
       },
       {
-        path:'studentsInformation',
-        element:<StudentsInformation></StudentsInformation>
+        path: 'studentsInformation',
+        element: <StudentsInformation></StudentsInformation>
       },
       {
-        path:'teachers',
-        element:<Teachers></Teachers>
+        path: 'teachers',
+        element: <Teachers></Teachers>
       },
       {
-        path:'committe',
-        element:<Committe></Committe>
+        path: 'committe',
+        element: <Committe></Committe>
       },
       {
-        path:'lillahBoarding',
-        element:<LillahBoarding></LillahBoarding>
+        path: 'lillahBoarding',
+        element: <LillahBoarding></LillahBoarding>
       },
       {
-        path:'signup',
-        element:<Signup></Signup>
+        path: 'introduction',
+        element: <IntroductionOfMadrasha></IntroductionOfMadrasha>
       },
       {
-        path:'noticeDetails/:id',
-        element:<NoticeDetails></NoticeDetails>
+        path: 'signup',
+        element: <Signup></Signup>
+      },
+      {
+        path: 'noticeDetails/:id',
+        element: <NoticeDetails></NoticeDetails>
+      },
+      {
+        path: 'newsDetails/:id',
+        element: <NewsDetails></NewsDetails>
       }
     ]
 
@@ -101,16 +111,16 @@ export const router = createBrowserRouter([
         element: <AddRoutine></AddRoutine>
       },
       {
-        path:'addCommitte',
-        element:<AddCommitte></AddCommitte>
+        path: 'addCommitte',
+        element: <AddCommitte></AddCommitte>
       },
       {
-        path:'addNews',
-        element:<AddNews></AddNews>
+        path: 'addNews',
+        element: <AddNews></AddNews>
       },
       {
-        path:'others',
-        element:<Others></Others>
+        path: 'others',
+        element: <Others></Others>
       }
     ]
   }

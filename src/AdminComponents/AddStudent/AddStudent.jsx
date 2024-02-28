@@ -9,7 +9,7 @@ const AddStudent = () => {
     const [selectedFile, setSelectedFile] = useState(null);
     const [successMessage, setSucsessMessage] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
-    const [students, setStudents] = useState([])
+    const [students, setStudents] = useState([]);
 
     useEffect(() => {
         fetchData();

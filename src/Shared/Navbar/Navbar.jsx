@@ -170,7 +170,7 @@ const Navbar = () => {
                         {/* Dropdown Menu */}
 
                         <div className={`absolute z-50 w-60 top-full left-0 bg-[#DAA520] shadow-xl rounded-lg origin-top text-white py-2 mt-2 space-y-2 ${activeDropdown === 'intro' ? 'scale-y-full duration-300' : 'scale-y-0 duration-300'}`}>
-                            <Link onClick={() => toggleDropdown('')} to="/" className="block px-4 py-2 hover:text-gray-300">
+                            <Link onClick={() => toggleDropdown('')} to="/introduction" className="block px-4 py-2 hover:text-gray-300">
                                 এক নজরে মাদরাসা
                             </Link>
                             <Link onClick={() => toggleDropdown('')} to="/" className="block px-4 py-2 hover:text-gray-300">
@@ -275,7 +275,7 @@ const Navbar = () => {
                         {/* Dropdown Menu */}
 
                         <div className={`absolute z-50   top-full left-0 bg-black rounded-lg origin-top text-white py-2 mt-2 space-y-2 ${activeDropdown === 'intro' ? 'scale-y-full duration-300' : 'scale-y-0 duration-300'}`}>
-                            <Link onClick={toggleMenu} to="/" className="block text-xl my-5 mx-3  px-4 py-2 hover:text-gray-300">
+                            <Link onClick={toggleMenu} to="/introduction" className="block text-xl my-5 mx-3  px-4 py-2 hover:text-gray-300">
                                 এক নজরে মাদরাসা
                             </Link>
                             <Link onClick={toggleMenu} to="/" className="block text-xl my-5 mx-3  px-4 py-2 hover:text-gray-300">

@@ -133,3 +133,6 @@ button:focus-visible {
   background-color: transparent; 
 }
 /* campus image animation */
+html {
+    scroll-behavior: smooth;
+} 
