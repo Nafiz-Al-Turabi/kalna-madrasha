@@ -125,16 +125,19 @@ const AddResult = () => {
                         name="class_name"
                         className="w-full px-4 py-2 text-gray-500 shadow-inner p-3 bg-gray-100 focus:outline-none placeholder:text-base rounded"
                     >
-                        <option value="class1">Class 1</option>
-                        <option value="class2">Class 2</option>
-                        <option value="class3">Class 3</option>
-                        <option value="class4">Class 4</option>
-                        <option value="class5">Class 5</option>
-                        <option value="class6">Class 6</option>
-                        <option value="class7">Class 7</option>
-                        <option value="class8">Class 8</option>
-                        <option value="class9">Class 9</option>
-                        <option value="class10">Class 10</option>
+                        <option value="class One">Class One</option>
+                        <option value="class Two">Class Two</option>
+                        <option value="class Three">Class Three</option>
+                        <option value="class Four">Class Four</option>
+                        <option value="class Five">Class Five</option>
+                        <option value="class Six">Class Six</option>
+                        <option value="class Seven">Class Seven</option>
+                        <option value="class Eight">Class Eight</option>
+                        <option value="class Nine">Class Nine</option>
+                        <option value="class Dakhil">Class Dakhil</option>
+                        <option value="class Alim">Class Alim</option>
+                        <option value="class Fazil">Class Fazil</option>
+                        <option value="class Kamil">Class Kamil</option>
                     </select>
                 </div>
 

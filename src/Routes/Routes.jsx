@@ -19,12 +19,15 @@ import ELibrary from "../Components/ELibrary/ELibrary";
 import StudentsInformation from "../Components/StudentsInformation/StudentsInformation";
 import Teachers from "../Components/Teachers/Teachers";
 import Committe from "../Components/Committe/Committe";
-import LillahBoarding from "../Components/LillahBoarding/LillahBoarding";
+import LillahBoarding from "../Components/LillahBoarding/PhotoGallery";
 import Signup from "../Components/Signup/Signup";
 import PrivateRouter from "../Components/PrivateRouter/PrivateRouter";
 import NoticeDetails from "../Components/NoticeDetails/NoticeDetails";
 import NewsDetails from "../Components/News/NewsDetails";
 import IntroductionOfMadrasha from "../Components/IntroductionOfMadrasha/IntroductionOfMadrasha";
+import Routine from "../Components/Routine/Routine";
+import PrincipalSpeech from "../Components/PrincipalSpeech/PrincipalSpeech";
+import Syllabuses from "../Components/Syllabuses/Syllabuses";
 
 export const router = createBrowserRouter([
   {
@@ -78,6 +81,18 @@ export const router = createBrowserRouter([
       {
         path: 'newsDetails/:id',
         element: <NewsDetails></NewsDetails>
+      },
+      {
+        path:'routines',
+        element:<Routine></Routine>
+      },
+      {
+        path:'principalSpeech',
+        element:<PrincipalSpeech></PrincipalSpeech>
+      },
+      {
+        path:'syllabuses',
+        element:<Syllabuses></Syllabuses>
       }
     ]
 
@@ -121,7 +136,37 @@ export const router = createBrowserRouter([
       {
         path: 'others',
         element: <Others></Others>
-      }
+      },
+      
     ]
   }
 ]);
+
+const downloadPdf = async (syllabus) => {
+  try {
+      const response = await fetch(`http://localhost:5000/getimage?path=${syllabus.imagePath}`);
+      const blob = await response.blob();
+
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `${syllabus.syllabus_name}.pdf`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      // Clean up after the download
+      window.URL.revokeObjectURL(url);
+  } catch (error) {
+      console.error('Error downloading PDF:', error);
+  }
+};
+
+const viewPdf = (syllabus) => {
+  try {
+      const viewerUrl = `http://localhost:5000/getimage?path=${syllabus.imagePath}`;
+      window.open(viewerUrl, '_blank');
+  } catch (error) {
+      console.error('Error viewing PDF:', error);
+  }
+};

@@ -80,10 +80,11 @@ const CampusImage = () => {
                     key={index}
                     src={`http://localhost:5000/getimage?path=${encodeURIComponent(image.imagePath)}`}
                     alt={`Image ${index + 1}`}
-                    className="campus-image"
+                    className="campus-image h-56 lg:h-[500px]"
                     style={{
                       width: '100%',
-                      height: 'auto',
+                      // height: '500px',
+                      // aspectRatio:16/9,
                       position: 'absolute',
                       opacity: index === currentImageIndex ? 1 : 0,
                       transition: 'opacity 0.5s ease-in-out',

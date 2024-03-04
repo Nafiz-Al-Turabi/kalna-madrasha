@@ -5,7 +5,7 @@ const DeleteModal = ({ isOpen, closeModal, handleDelete }) => {
     return (
         <>
             {isOpen && (
-                <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-red-800 bg-opacity-50">
+                <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-red-800 bg-opacity-50 z-50">
                     <div className="admin bg-white p-8 rounded-lg">
                         <div  className='flex justify-center'>
                             <FaRegWindowClose className='text-6xl text-red-500'/>

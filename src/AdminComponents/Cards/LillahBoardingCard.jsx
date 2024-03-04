@@ -24,7 +24,7 @@ const LillahBoardingCard = ({lillahImage, onDelete}) => {
         }
     }
     return (
-        <div className='bg-white rounded-full '>
+        <div className='bg-white h-48 '>
             <div className='relative'>
                 <img
                     src={`http://localhost:5000/getimage?path=${lillahImage.imagePath}`}

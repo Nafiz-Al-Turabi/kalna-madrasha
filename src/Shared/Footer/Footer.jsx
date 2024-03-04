@@ -2,7 +2,6 @@ import React from 'react';
 import logo from '../../assets/logo.png'
 import { FaPhone, FaPhoneVolume } from 'react-icons/fa6';
 import { MdMailOutline } from 'react-icons/md';
-
 const Footer = () => {
     return (
         <footer className="bg-gray-800 text-white ">
@@ -34,21 +33,21 @@ const Footer = () => {
                         <FaPhoneVolume className='text-xl' />
                         <div>
                             <h3 className='uppercase'>Phone</h3>
-                            <p>01747206719</p>
+                            <p>+8801950-782613</p>
                         </div>
                     </div>
                     <div className='flex  items-center gap-5'>
                         <FaPhoneVolume className='text-xl' />
                         <div>
                             <h3 className='uppercase'>Phone</h3>
-                            <p>01747206719</p>
+                            <p>+8801718-181191</p>
                         </div>
                     </div>
                     <div className='flex  items-center gap-5'>
                         <MdMailOutline className='text-xl' />
                         <div>
                             <h3 className='uppercase'>Email</h3>
-                            <p>mail@gmail.com</p>
+                            <p>yunuspkm7@gmail.com</p>
                         </div>
                     </div>
                 </div>

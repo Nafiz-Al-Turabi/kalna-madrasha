@@ -173,7 +173,7 @@ const Navbar = () => {
                             <Link onClick={() => toggleDropdown('')} to="/introduction" className="block px-4 py-2 hover:text-gray-300">
                                 এক নজরে মাদরাসা
                             </Link>
-                            <Link onClick={() => toggleDropdown('')} to="/" className="block px-4 py-2 hover:text-gray-300">
+                            <Link onClick={() => toggleDropdown('')} to="/principalSpeech" className="block px-4 py-2 hover:text-gray-300">
                                 অধ্যক্ষের বাণী
                             </Link>
                             <Link onClick={() => toggleDropdown('')} to="/" className="block px-4 py-2 hover:text-gray-300">
@@ -194,16 +194,14 @@ const Navbar = () => {
 
                         <div className={`absolute z-50 w-60 top-full left-0 bg-[#DAA520] shadow-xl rounded-lg origin-top text-white py-2 mt-2 space-y-2 ${activeDropdown === 'academic' ? 'scale-y-full duration-300' : 'scale-y-0 duration-300'}`}>
 
-                            <Link onClick={() => toggleDropdown('')} to="/" className="block px-4 py-2 hover:text-gray-300">
+                            <Link onClick={() => toggleDropdown('')} to="/syllabuses" className="block px-4 py-2 hover:text-gray-300">
                                 পাঠক্রম
                             </Link>
                             <Link onClick={() => toggleDropdown('')} to="/academicResult" className="block px-4 py-2 hover:text-gray-300">
                                 ফলাফল
                             </Link>
-                            <Link onClick={() => toggleDropdown('')} to="/" className="block px-4 py-2 hover:text-gray-300">
-                                ছুটির তালিকা
-                            </Link>
-                            <Link onClick={() => toggleDropdown('')} to="/" className="block px-4 py-2 hover:text-gray-300">
+                            
+                            <Link onClick={() => toggleDropdown('')} to="/routines" className="block px-4 py-2 hover:text-gray-300">
                                 পরীক্ষার রুটিন
                             </Link>
                         </div>
@@ -278,7 +276,7 @@ const Navbar = () => {
                             <Link onClick={toggleMenu} to="/introduction" className="block text-xl my-5 mx-3  px-4 py-2 hover:text-gray-300">
                                 এক নজরে মাদরাসা
                             </Link>
-                            <Link onClick={toggleMenu} to="/" className="block text-xl my-5 mx-3  px-4 py-2 hover:text-gray-300">
+                            <Link onClick={toggleMenu} to="/principalSpeech" className="block text-xl my-5 mx-3  px-4 py-2 hover:text-gray-300">
                                 অধ্যক্ষের বাণী
                             </Link>
                             <Link onClick={toggleMenu} to="/" className="block text-xl my-5 mx-3  px-4 py-2 hover:text-gray-300">
@@ -304,16 +302,13 @@ const Navbar = () => {
                             <Link onClick={toggleMenu} to="/academicResult" className="block text-xl my-5 mx-3  px-4 py-2 hover:text-gray-300">
                                 পরিক্ষার ফলাফল
                             </Link>
-                            <Link onClick={toggleMenu} to="/" className="block text-xl my-5 mx-3  px-4 py-2 hover:text-gray-300">
-                                ছুটির তালিকা
-                            </Link>
-                            <Link onClick={toggleMenu} to="/" className="block text-xl my-5 mx-3  px-4 py-2 hover:text-gray-300">
+                            <Link onClick={toggleMenu} to="/routines" className="block text-xl my-5 mx-3  px-4 py-2 hover:text-gray-300">
                                 পরীক্ষার রুটিন
                             </Link>
                         </div>
 
                     </div>
-                    <Link onClick={toggleMenu} to="/" className="block text-xl my-5 bg-gray-500/30 mx-3  px-4 py-2 text-white hover:text-gray-300">
+                    <Link onClick={toggleMenu} to="http://admission.iau.edu.bd/" target='blank' className="block text-xl my-5 bg-gray-500/30 mx-3  px-4 py-2 text-white hover:text-gray-300">
                         ভর্তি
                     </Link>
                     <Link onClick={toggleMenu} to="/lillahBoarding" className="block text-xl my-5 bg-gray-500/30 mx-3  px-4 py-2 text-white hover:text-gray-300">

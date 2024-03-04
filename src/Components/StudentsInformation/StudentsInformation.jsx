@@ -1,26 +1,32 @@
 import React, { useEffect, useState } from 'react';
 import axiosInstance from '../../Global/Axios/AxiosInstance';
-import { FaSearch } from 'react-icons/fa';
 
 const StudentsInformation = () => {
     const [students, setStudents] = useState([]);
     const [searchInput, setSearchInput] = useState('');
+    const [selectedClass, setSelectedClass] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 20; // number of items per page
 
     useEffect(() => {
         fetchStudentData();
-    }, [searchInput, currentPage]);
+    }, [searchInput, selectedClass, currentPage]);
 
     const fetchStudentData = async () => {
         try {
             const response = await axiosInstance.get('/students');
             const data = response.data;
             // Apply search filter
-            const filteredResults = data.filter(student =>
+            let filteredResults = data.filter(student =>
                 student.name.toLowerCase().includes(searchInput.toLowerCase()) ||
                 student.roll.includes(searchInput)
             );
+            // Apply class filter if a class is selected
+            if (selectedClass !== '') {
+                filteredResults = filteredResults.filter(student =>
+                    student.class_name === selectedClass
+                );
+            }
             // Apply pagination
             const startIndex = (currentPage - 1) * itemsPerPage;
             const endIndex = startIndex + itemsPerPage;
@@ -36,22 +42,43 @@ const StudentsInformation = () => {
         fetchStudentData();
     };
 
+    const handleClassChange = (classSelected) => {
+        setSelectedClass(classSelected);
+        setCurrentPage(1); // Reset to the first page when class changes
+    };
+
     return (
         <div>
             <h1 className='text-center text-3xl text-gray-700 font-bold my-5'>ছাত্র-ছাত্রীর তথ্য</h1>
-            <div className='flex justify-center '>
-                <input
-                    type="text"
-                    className='w-96 p-2 bg-gray-100 focus:outline-none'
-                    placeholder='Search by Name or ID...'
-                    value={searchInput}
-                    onChange={(e) => setSearchInput(e.target.value)}
-                />
-                <button className='p-2 bg-[#DAA520]' onClick={handleSearch}>
-                    <FaSearch />
-                </button>
+            <div className='md:flex justify-center space-y-2'>
+                <div className='flex justify-center '>
+                    <input
+                        type="text"
+                        className='w-96 p-2 bg-gray-100 focus:outline-none'
+                        placeholder='Search by Name or ID...'
+                        value={searchInput}
+                        onChange={(e) => setSearchInput(e.target.value)}
+                    />
+                    
+                </div>
+                <div className='flex justify-center'>
+                    <select
+                        value={selectedClass}
+                        onChange={(e) => handleClassChange(e.target.value)}
+                        className='px-2 py- border border-gray-300 focus:outline-none focus:border-[#DAA520]'
+                    >
+                        <option value=''>All Classes</option>
+                        {/* Add options dynamically based on available classes */}
+                        {Array.from(new Set(students.map(student => student.class_name))).map((class_name) => (
+                            <option key={class_name} value={class_name}>
+                                {class_name}
+                            </option>
+                        ))}
+                    </select>
+                </div>
             </div>
             <div className='max-w-7xl mx-auto my-10'>
+
                 <div className='grid grid-cols-2 lg:grid-cols-6 gap-5 mx-4'>
                     {students.map((student) => (
                         <div key={student.id} className="rounded-lg overflow-hidden shadow-md border border-gray-200">
