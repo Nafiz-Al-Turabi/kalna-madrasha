@@ -33,14 +33,12 @@ const Contact = () => {
       });
 
       // Set success message
-      setSuccessMessage('Form submitted successfully');
+      setSuccessMessage('Message successfully');
       setErrorMessage('');
-      console.log('Form submitted:', response.data);
     } catch (error) {
       // Set error message
-      setErrorMessage('Error submitting form');
+      setErrorMessage('Error sending message');
       setSuccessMessage('');
-      console.error('Error submitting form:', error);
     }
   };
 
