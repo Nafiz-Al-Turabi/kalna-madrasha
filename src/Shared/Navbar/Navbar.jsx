@@ -7,6 +7,7 @@ import logo from '../../assets/logo.png'
 import './Navbar.css'
 import AdminLogin from '../../Components/AdminLogin/AdminLogin';
 import { useAuth } from '../../Provider/AuthProvider';
+import ActiveLink from '../../Components/ActiveLink/ActiveLink';
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -133,9 +134,9 @@ const Navbar = () => {
 
                 {/* Desktop Menu */}
                 <div className="hidden lg:flex space-x-4">
-                    <Link onClick={() => toggleDropdown('')} to="/" className="text-white hover:text-gray-300">
+                    <ActiveLink onClick={() => toggleDropdown('')} to="/" className="text-white hover:text-gray-300">
                         মূল পাতা
-                    </Link>
+                    </ActiveLink>
                     {/* Services with dropdown */}
                     <div className="relative group">
                         <span
@@ -195,12 +196,12 @@ const Navbar = () => {
                         <div className={`absolute z-50 w-60 top-full left-0 bg-[#DAA520] shadow-xl rounded-lg origin-top text-white py-2 mt-2 space-y-2 ${activeDropdown === 'academic' ? 'scale-y-full duration-300' : 'scale-y-0 duration-300'}`}>
 
                             <Link onClick={() => toggleDropdown('')} to="/syllabuses" className="block px-4 py-2 hover:text-gray-300">
-                                পাঠক্রম
+                                পাঠ্যক্রম
                             </Link>
                             <Link onClick={() => toggleDropdown('')} to="/academicResult" className="block px-4 py-2 hover:text-gray-300">
                                 ফলাফল
                             </Link>
-                            
+
                             <Link onClick={() => toggleDropdown('')} to="/routines" className="block px-4 py-2 hover:text-gray-300">
                                 পরীক্ষার রুটিন
                             </Link>
@@ -211,16 +212,16 @@ const Navbar = () => {
                     <Link onClick={() => toggleDropdown('')} to="http://admission.iau.edu.bd/" target='blank' className="text-white hover:text-gray-300">
                         ভর্তি
                     </Link>
-                    <Link onClick={() => toggleDropdown('')} to="/lillahBoarding" className="text-white hover:text-gray-300">
-                        লিল্লাহ বোর্ডিং
-                    </Link>
+                    <ActiveLink onClick={() => toggleDropdown('')} to="/lillahBoarding">
+                        লিল্লাহ বোর্ডিং এবং কমপ্লেক্স
+                    </ActiveLink>
 
-                    <Link onClick={() => toggleDropdown('')} to="/elibrary" className="text-white hover:text-gray-300">
+                    <ActiveLink onClick={() => toggleDropdown('')} to="/elibrary">
                         ই-লাইব্রেরী
-                    </Link>
-                    <Link onClick={() => toggleDropdown('')} to="/contact" className="text-white hover:text-gray-300">
+                    </ActiveLink>
+                    <ActiveLink onClick={() => toggleDropdown('')} to="/contact">
                         যোগাযোগ
-                    </Link>
+                    </ActiveLink>
                     {isLoggedIn ?
                         <Link to='/admin/dashboard' className="text-white bg-yellow-500 px-5 py-0.5 rounded cursor-pointer">Admin Dashbord</Link>
                         :
@@ -297,7 +298,7 @@ const Navbar = () => {
                         <div className={`absolute z-50   top-full left-0 bg-black rounded-lg origin-top text-white py-2 mt-2 space-y-2 ${activeDropdown === 'academic' ? 'scale-y-full duration-300' : 'scale-y-0 duration-300'}`}>
 
                             <Link onClick={toggleMenu} to="/" className="block text-xl my-5 mx-3  px-4 py-2 hover:text-gray-300">
-                                পাঠক্রম
+                                পাঠ্যক্রম
                             </Link>
                             <Link onClick={toggleMenu} to="/academicResult" className="block text-xl my-5 mx-3  px-4 py-2 hover:text-gray-300">
                                 পরিক্ষার ফলাফল

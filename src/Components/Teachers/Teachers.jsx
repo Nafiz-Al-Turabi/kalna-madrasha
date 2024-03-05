@@ -8,6 +8,7 @@ const Teachers = () => {
     const [teachers, setTeachers] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
     const [filteredTeachers, setFilteredTeachers] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         fetchTeachersData();
@@ -17,6 +18,7 @@ const Teachers = () => {
         const response = await axiosInstance.get('/teachers');
         setTeachers(response.data);
         setFilteredTeachers(response.data)
+        setLoading(false)
     };
 
     const handleSearch = () => {
@@ -45,30 +47,38 @@ const Teachers = () => {
                     <FaSearch />
                 </button>
             </div>
-            <div className='max-w-7xl mx-auto'>
-                <div className='grid grid-cols-1 lg:grid-cols-3 gap-5 mx-4 lg:mx-0'>
-                    {
-                        filteredTeachers.map(teacher =>
-                            <div className="shadow-lg rounded-lg overflow-hidden flex p-2 border-t border-gray-50 bg-cover"
-                            style={{ backgroundImage: `url(${bg})` }}
-                            key={teacher.id}>
-                                <div className="flex-none">
-                                    <img className=" w-32 object-cover rounded-md"
-                                        src={`http://localhost:5000/getimage?path=${teacher.imagePath}`} alt="Person"
-                                        style={{ aspectRatio: '16/18' }}
-                                        />
-                                </div>
-                                <div className="px-2 py-4 text-white">
-                                    <div className="font-bold text-xl mb-2">{teacher.name}</div>
-                                    <p className="font-semibold text-base flex items-center"><FaUserTie className='mr-2'/> {teacher.designation}</p>
-                                    <p className="font-semibold text-base flex items-center"><MdEmail className='mr-2' /> {teacher.email}</p>
-                                    <p className="font-semibold text-base flex items-center"><FaPhone className='mr-2'/> {teacher.number}</p>
-                                </div>
-                            </div>
-                        )
-                    }
-                </div>
-            </div>
+            {
+                loading
+                    ?
+                    <div className="flex justify-center items-center h-screen md:h-96">
+                        <div class="w-16 h-16 border-8 border-dashed rounded-full animate-spin duration-1000 border-[#DAA520]"></div>
+                    </div>
+                    :
+                    <div className='max-w-7xl mx-auto'>
+                        <div className='grid grid-cols-1 lg:grid-cols-3 gap-5 mx-4 lg:mx-0'>
+                            {
+                                filteredTeachers.map(teacher =>
+                                    <div className="shadow-lg rounded-lg overflow-hidden flex p-2 border-t border-gray-50 bg-cover"
+                                        style={{ backgroundImage: `url(${bg})` }}
+                                        key={teacher.id}>
+                                        <div className="flex-none">
+                                            <img className=" w-32 object-cover rounded-md"
+                                                src={`http://localhost:5000/getimage?path=${teacher.imagePath}`} alt="Person"
+                                                style={{ aspectRatio: '16/18' }}
+                                            />
+                                        </div>
+                                        <div className="px-2 py-4 text-white">
+                                            <div className="font-bold text-xl mb-2">{teacher.name}</div>
+                                            <p className="font-semibold text-base flex items-center"><FaUserTie className='mr-2' /> {teacher.designation}</p>
+                                            <p className="font-semibold text-base flex items-center"><MdEmail className='mr-2' /> {teacher.email}</p>
+                                            <p className="font-semibold text-base flex items-center"><FaPhone className='mr-2' /> {teacher.number}</p>
+                                        </div>
+                                    </div>
+                                )
+                            }
+                        </div>
+                    </div>
+            }
         </div>
     );
 };

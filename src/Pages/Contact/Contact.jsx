@@ -1,6 +1,5 @@
-// ContactForm.js
-
 import React, { useState } from 'react';
+import axiosInstance from '../../Global/Axios/AxiosInstance';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -9,6 +8,9 @@ const Contact = () => {
     message: '',
   });
 
+  const [successMessage, setSuccessMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -16,15 +18,37 @@ const Contact = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // You can add your form submission logic here
-    console.log('Form submitted:', formData);
+    
+    try {
+      // Send a POST request to your server endpoint
+      const response = await axiosInstance.post('/postcontact', formData);
+      
+      // Clear the form after successful submission
+      setFormData({
+        name: '',
+        email: '',
+        message: '',
+      });
+
+      // Set success message
+      setSuccessMessage('Form submitted successfully');
+      setErrorMessage('');
+      console.log('Form submitted:', response.data);
+    } catch (error) {
+      // Set error message
+      setErrorMessage('Error submitting form');
+      setSuccessMessage('');
+      console.error('Error submitting form:', error);
+    }
   };
 
   return (
     <div className="max-w-md mx-auto mt-8 p-8 bg-white shadow-lg rounded-lg my-20">
       <h2 className="text-2xl font-semibold mb-4">Contact Us</h2>
+      {successMessage && <p className="text-green-600 mb-4">{successMessage}</p>}
+      {errorMessage && <p className="text-red-600 mb-4">{errorMessage}</p>}
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
           <label htmlFor="name" className="block text-gray-700 text-sm font-bold mb-2">

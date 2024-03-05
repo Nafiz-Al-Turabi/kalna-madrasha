@@ -3,7 +3,8 @@ import axiosInstance from '../../Global/Axios/AxiosInstance';
 import pdfImage from '../../assets/pdf.png'
 
 const Routine = () => {
-    const [routines, setRoutines] = useState([])
+    const [routines, setRoutines] = useState([]);
+    const [loading, setLoading] = useState(true);
 
 
     useEffect(() => {
@@ -13,7 +14,7 @@ const Routine = () => {
         try {
             const response = await axiosInstance.get('/routines');
             setRoutines(response.data);
-            console.log(response.data)
+            setLoading(false);
         } catch (error) {
             console.error('Error fetching Routine:', error);
         }
@@ -49,30 +50,38 @@ const Routine = () => {
     return (
         <div>
             <h1 className='text-3xl font-bold text-center mt-5 text-gray-700'>পরীক্ষার রুটিন</h1>
-            <div className='space-y-3 max-w-7xl mx-auto my-10'>
-                {
-                    routines.map(routineData =>
-                        <div className='flex justify-between mx-4 items-center bg-slate-200 p-2  text-gray-700 overflow-hidden shadow-md rounded-md'>
-                            <div className='flex items-center gap-5'>
-                                <img src={pdfImage} alt="pdf" className='h-10' />
-                                <h1 className='text-lg'>{routineData.title}</h1>
-                            </div>
+            {
+                loading
+                    ?
+                    <div className="flex justify-center items-center h-screen md:h-96">
+                        <div class="w-16 h-16 border-8 border-dashed rounded-full animate-spin duration-1000 border-[#DAA520]"></div>
+                    </div>
+                    :
+                    <div className='space-y-3 max-w-7xl mx-auto my-10'>
+                        {
+                            routines.map(routineData =>
+                                <div className='flex justify-between mx-4 items-center bg-slate-200 p-2  text-gray-700 overflow-hidden shadow-md rounded-md'>
+                                    <div className='flex items-center gap-5'>
+                                        <img src={pdfImage} alt="pdf" className='h-10' />
+                                        <h1 className='text-lg'>{routineData.title}</h1>
+                                    </div>
 
-                            <div className='space-y-1'>
-                                <button
-                                    className='w-32 font-semibold rounded bg-red-500 text-white px-5 mr-5'
-                                    onClick={() => downloadPdf(routineData)}
-                                >
-                                    Download
-                                </button>
-                                <button className='w-32 font-semibold rounded bg-cyan-500 text-white px-5 md:my-2' onClick={() => viewPdf(routineData)}>
-                                    View result
-                                </button>
-                            </div>
-                        </div>
-                    )
-                }
-            </div>
+                                    <div className='space-y-1'>
+                                        <button
+                                            className='w-32 font-semibold rounded bg-red-500 text-white px-5 mr-5'
+                                            onClick={() => downloadPdf(routineData)}
+                                        >
+                                            Download
+                                        </button>
+                                        <button className='w-32 font-semibold rounded bg-cyan-500 text-white px-5 md:my-2' onClick={() => viewPdf(routineData)}>
+                                            View result
+                                        </button>
+                                    </div>
+                                </div>
+                            )
+                        }
+                    </div>
+            }
         </div>
     );
 };

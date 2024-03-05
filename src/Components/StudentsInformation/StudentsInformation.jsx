@@ -7,6 +7,8 @@ const StudentsInformation = () => {
     const [selectedClass, setSelectedClass] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 20; // number of items per page
+    const [loading, setLoading] = useState(true);
+
 
     useEffect(() => {
         fetchStudentData();
@@ -32,6 +34,7 @@ const StudentsInformation = () => {
             const endIndex = startIndex + itemsPerPage;
             const paginatedResults = filteredResults.slice(startIndex, endIndex);
             setStudents(paginatedResults);
+            setLoading(false);
         } catch (error) {
             console.error('Error fetching data:', error);
         }
@@ -50,7 +53,7 @@ const StudentsInformation = () => {
     return (
         <div>
             <h1 className='text-center text-3xl text-gray-700 font-bold my-5'>ছাত্র-ছাত্রীর তথ্য</h1>
-            <div className='md:flex justify-center space-y-2'>
+            <div className='md:flex justify-center space-y-2 md:space-y-0'>
                 <div className='flex justify-center '>
                     <input
                         type="text"
@@ -59,7 +62,7 @@ const StudentsInformation = () => {
                         value={searchInput}
                         onChange={(e) => setSearchInput(e.target.value)}
                     />
-                    
+
                 </div>
                 <div className='flex justify-center'>
                     <select
@@ -79,20 +82,28 @@ const StudentsInformation = () => {
             </div>
             <div className='max-w-7xl mx-auto my-10'>
 
-                <div className='grid grid-cols-2 lg:grid-cols-6 gap-5 mx-4'>
-                    {students.map((student) => (
-                        <div key={student.id} className="rounded-lg overflow-hidden shadow-md border border-gray-200">
-                            <div className="flex justify-center items-center h-48 m-2 rounded-lg  overflow-hidden">
-                                <img className="w-full h-full object-cover" src={`http://localhost:5000/getimage?path=${student.imagePath}`} alt="Student" />
-                            </div>
-                            <div className="p-2">
-                                <div className="font-bold text-base md:text-xl mb-2 text-gray-700">{student.name}</div>
-                                <p className="text-gray-700 font-bold text-base mb-2">Class: {student.class_name}</p>
-                                <p className="text-gray-700 font-bold text-base">ID: <span className='text-red-500'>{student.roll}</span></p>
-                            </div>
+                {
+                    loading
+                        ?
+                        <div className="flex justify-center items-center h-screen md:h-96">
+                            <div class="w-16 h-16 border-8 border-dashed rounded-full animate-spin duration-1000 border-[#DAA520]"></div>
                         </div>
-                    ))}
-                </div>
+                        :
+                        <div className='grid grid-cols-2 lg:grid-cols-6 gap-5 mx-4'>
+                            {students.map((student) => (
+                                <div key={student.id} className="rounded-lg overflow-hidden shadow-md border border-gray-200">
+                                    <div className="flex justify-center items-center h-48 m-2 rounded-lg  overflow-hidden">
+                                        <img className="w-full h-full object-cover" src={`http://localhost:5000/getimage?path=${student.imagePath}`} alt="Student" />
+                                    </div>
+                                    <div className="p-2">
+                                        <div className="font-bold text-base md:text-xl mb-2 text-gray-700">{student.name}</div>
+                                        <p className="text-gray-700 font-bold text-base mb-2">Class: {student.class_name}</p>
+                                        <p className="text-gray-700 font-bold text-base">ID: <span className='text-red-500'>{student.roll}</span></p>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                }
                 {/* Pagination Controls */}
                 <div className="flex justify-between mt-5">
                     <button

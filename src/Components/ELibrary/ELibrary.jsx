@@ -7,6 +7,8 @@ const ELibrary = () => {
     const [ebooks, setEbooks] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
     const [filteredEbooks, setFilteredEbooks] = useState([]);
+    const [loading, setLoading] = useState(true);
+
 
     useEffect(() => {
         ebooksData();
@@ -17,7 +19,7 @@ const ELibrary = () => {
             const response = await axiosInstance.get('/ebooks');
             setEbooks(response.data);
             setFilteredEbooks(response.data);
-            console.log(response.data);
+            setLoading(false);
         } catch (error) {
             console.error('Error fetching Ebooks:', error);
         }
@@ -78,33 +80,41 @@ const ELibrary = () => {
                     <FaSearch />
                 </button>
             </div>
-            <div className='max-w-7xl mx-auto mb-10'>
-                {filteredEbooks.length === 0 ? (
-                    <p className="text-center text-xl font-bold text-red-300 h-screen">Book not found</p>
-                ) : (
-                    <div className='mx-4 md:mx-0 grid grid-cols-2 md:grid-cols-6 gap-5 '>
-                        {filteredEbooks.map((ebook) => (
-                            <div key={ebook.id} className='border border-gray-200 w-full rounded shadow-lg'>
-                                <div className='  flex justify-center overflow-hidden'>
-                                    <img
-                                        src={`http://localhost:5000/getimage?path=${ebook.imagePath}`}
-                                        alt=""
-                                        className=' w-full hover:scale-110 object-cover duration-300'
-                                        style={{ aspectRatio: '16/20' }} 
-                                    />
-                                </div>
-                                <h1 className='font-bold text-gray-700 p-2'>{ebook.book_name}</h1>
-                                <div className='p-2'>
-                                    <button onClick={() => viewPdf(ebook)}
-                                        className='w-full text-white bg-cyan-500 hover:bg-cyan-400 duration-300 rounded mb-1'>Read Book</button>
-                                    <button onClick={() => downloadPdf(ebook)}
-                                        className='w-full text-white bg-green-500 hover:bg-green-400 duration-300 rounded'>Download Book</button>
-                                </div>
-                            </div>
-                        ))}
+            {
+                loading
+                    ?
+                    <div className="flex justify-center items-center h-screen md:h-96">
+                        <div class="w-16 h-16 border-8 border-dashed rounded-full animate-spin duration-1000 border-[#DAA520]"></div>
                     </div>
-                )}
-            </div>
+                    :
+                    <div className='max-w-7xl mx-auto mb-10'>
+                        {filteredEbooks.length === 0 ? (
+                            <p className="text-center text-xl font-bold text-red-300 h-screen">Book not found</p>
+                        ) : (
+                            <div className='mx-4 md:mx-0 grid grid-cols-2 md:grid-cols-6 gap-5 '>
+                                {filteredEbooks.map((ebook) => (
+                                    <div key={ebook.id} className='border border-gray-200 w-full rounded shadow-lg'>
+                                        <div className='  flex justify-center overflow-hidden'>
+                                            <img
+                                                src={`http://localhost:5000/getimage?path=${ebook.imagePath}`}
+                                                alt=""
+                                                className=' w-full hover:scale-110 object-cover duration-300'
+                                                style={{ aspectRatio: '16/20' }}
+                                            />
+                                        </div>
+                                        <h1 className='font-bold text-gray-700 p-2'>{ebook.book_name}</h1>
+                                        <div className='p-2'>
+                                            <button onClick={() => viewPdf(ebook)}
+                                                className='w-full text-white bg-cyan-500 hover:bg-cyan-400 duration-300 rounded mb-1'>Read Book</button>
+                                            <button onClick={() => downloadPdf(ebook)}
+                                                className='w-full text-white bg-green-500 hover:bg-green-400 duration-300 rounded'>Download Book</button>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        )}
+                    </div>
+            }
         </div>
     );
 };

@@ -141,32 +141,3 @@ export const router = createBrowserRouter([
     ]
   }
 ]);
-
-const downloadPdf = async (syllabus) => {
-  try {
-      const response = await fetch(`http://localhost:5000/getimage?path=${syllabus.imagePath}`);
-      const blob = await response.blob();
-
-      const url = window.URL.createObjectURL(blob);
-      const link = document.createElement('a');
-      link.href = url;
-      link.download = `${syllabus.syllabus_name}.pdf`;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-
-      // Clean up after the download
-      window.URL.revokeObjectURL(url);
-  } catch (error) {
-      console.error('Error downloading PDF:', error);
-  }
-};
-
-const viewPdf = (syllabus) => {
-  try {
-      const viewerUrl = `http://localhost:5000/getimage?path=${syllabus.imagePath}`;
-      window.open(viewerUrl, '_blank');
-  } catch (error) {
-      console.error('Error viewing PDF:', error);
-  }
-};

@@ -6,7 +6,8 @@ const Syllabuses = () => {
     const [syllabuses, setSyllabuses] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 20; // Change the number of items per page as needed
+    const itemsPerPage = 20;
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         fetchDataSyllabus();
@@ -16,6 +17,7 @@ const Syllabuses = () => {
         try {
             const response = await axiosInstance.get('/syllabuses');
             setSyllabuses(response.data);
+            setLoading(false);
         } catch (error) {
             console.error('failed to fetch Syllabus', error);
         }
@@ -65,53 +67,63 @@ const Syllabuses = () => {
     const paginatedSyllabuses = filteredSyllabuses.slice(startIndex, endIndex);
 
     return (
-        <div className='max-w-7xl mx-auto '>
-            <h1 className='text-center text-3xl text-gray-700 font-bold my-5'>পাঠক্রম</h1>
-            <div className='my-10 space-y-2'>
-                <div className='flex justify-center my-5'>
-                    <input
-                        type="text"
-                        className='w-96 p-2 bg-gray-100 focus:outline-none'
-                        placeholder='Search...'
-                        onChange={handleSearch}
-                    />
-                </div>
-                {paginatedSyllabuses.map((syllabus) => (
-                    <div key={syllabus._id} className="bg-white rounded-lg shadow-lg p-6  mx-4 border-t border-gray-100">
-                        <h2 className="text-lg font-semibold mb-4">{syllabus.syllabus_name}</h2>
-                        <div className="flex justify-between items-center mb-4">
+        <div>
+            {
+                loading
+                    ?
+                    <div className="flex justify-center items-center h-screen md:h-96">
+                        <div class="w-16 h-16 border-8 border-dashed rounded-full animate-spin duration-1000 border-[#DAA520]"></div>
+                    </div>
+                    :
+                    <div className='max-w-7xl mx-auto '>
+                        <h1 className='text-center text-3xl text-gray-700 font-bold my-5'>পাঠ্যক্রম</h1>
+                        <div className='my-10 space-y-2'>
+                            <div className='flex justify-center my-5'>
+                                <input
+                                    type="text"
+                                    className='w-96 p-2 bg-gray-100 border focus:outline-none'
+                                    placeholder='Search...'
+                                    onChange={handleSearch}
+                                />
+                            </div>
+                            {paginatedSyllabuses.map((syllabus) => (
+                                <div key={syllabus._id} className="bg-white rounded-lg shadow-lg p-6  mx-4 border-t border-gray-100">
+                                    <h2 className="text-lg font-semibold mb-4">{syllabus.syllabus_name}</h2>
+                                    <div className="flex justify-between items-center mb-4">
+                                        <button
+                                            onClick={() => downloadPdf(syllabus)}
+                                            className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
+                                        >
+                                            Download
+                                        </button>
+                                        <Link
+                                            onClick={() => viewPdf(syllabus)}
+                                            className="text-blue-500 hover:underline"
+                                        >
+                                            View
+                                        </Link>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                        <div className="flex justify-between mt-5">
                             <button
-                                onClick={() => downloadPdf(syllabus)}
-                                className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
+                                className={`mr-2 ${currentPage === 1 ? 'cursor-not-allowed' : 'cursor-pointer'}`}
+                                onClick={() => setCurrentPage(currentPage - 1)}
+                                disabled={currentPage === 1}
                             >
-                                Download
+                                Previous
                             </button>
-                            <Link
-                                onClick={() => viewPdf(syllabus)}
-                                className="text-blue-500 hover:underline"
+                            <button
+                                className={`ml-2 ${paginatedSyllabuses.length < itemsPerPage ? 'cursor-not-allowed' : 'cursor-pointer'}`}
+                                onClick={() => setCurrentPage(currentPage + 1)}
+                                disabled={paginatedSyllabuses.length < itemsPerPage}
                             >
-                                View
-                            </Link>
+                                Next
+                            </button>
                         </div>
                     </div>
-                ))}
-            </div>
-            <div className="flex justify-between mt-5">
-                <button
-                    className={`mr-2 ${currentPage === 1 ? 'cursor-not-allowed' : 'cursor-pointer'}`}
-                    onClick={() => setCurrentPage(currentPage - 1)}
-                    disabled={currentPage === 1}
-                >
-                    Previous
-                </button>
-                <button
-                    className={`ml-2 ${paginatedSyllabuses.length < itemsPerPage ? 'cursor-not-allowed' : 'cursor-pointer'}`}
-                    onClick={() => setCurrentPage(currentPage + 1)}
-                    disabled={paginatedSyllabuses.length < itemsPerPage}
-                >
-                    Next
-                </button>
-            </div>
+            }
         </div>
     );
 };
