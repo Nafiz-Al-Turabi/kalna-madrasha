@@ -20,7 +20,6 @@ import StudentsInformation from "../Components/StudentsInformation/StudentsInfor
 import Teachers from "../Components/Teachers/Teachers";
 import Committe from "../Components/Committe/Committe";
 import LillahBoarding from "../Components/LillahBoarding/PhotoGallery";
-import Signup from "../Components/Signup/Signup";
 import PrivateRouter from "../Components/PrivateRouter/PrivateRouter";
 import NoticeDetails from "../Components/NoticeDetails/NoticeDetails";
 import NewsDetails from "../Components/News/NewsDetails";
@@ -69,10 +68,6 @@ export const router = createBrowserRouter([
       {
         path: 'introduction',
         element: <IntroductionOfMadrasha></IntroductionOfMadrasha>
-      },
-      {
-        path: 'signup',
-        element: <Signup></Signup>
       },
       {
         path: 'noticeDetails/:id',

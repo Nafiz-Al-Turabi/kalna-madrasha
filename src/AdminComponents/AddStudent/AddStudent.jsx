@@ -109,6 +109,8 @@ const AddStudent = () => {
                             className="hidden"
                             id="fileInput"
                             onChange={handleFileChange}
+                            required
+                            accept='.jpg,.png,.gif,.jpeg.web'
                         />
                         <label
                             htmlFor="fileInput"
@@ -139,6 +141,7 @@ const AddStudent = () => {
                                 id="classSelect"
                                 name="class_name"
                                 className='admin-input w-full text-xl text-gray-500 shadow-inner p-3 bg-gray-100 focus:outline-none placeholder:text-base rounded'
+                                required
                             >
                                 <option value="" disabled selected>Select class</option>
                                 <option value="One">Class One</option>
@@ -150,14 +153,17 @@ const AddStudent = () => {
                                 <option value="Seven">Class Seven</option>
                                 <option value="Eight">Class Eight</option>
                                 <option value="Nine">Class Nine</option>
-                                <option value="Ten">Class Ten</option>
+                                <option value="Dakhil">Dakhil</option>
+                                <option value="Alim">Alim</option>
+                                <option value="Fazil">Fazil</option>
+                                <option value="Kamil">Kamil</option>
                             </select>
                         </div>
                         <div>
-                            <input className='admin-input w-full text-xl text-gray-500 shadow-inner p-3 bg-gray-100 focus:outline-none placeholder:text-base rounded ' type="text" name='roll' placeholder="Enter Student's Id or Roll" />
+                            <input className='admin-input w-full text-xl text-gray-500 shadow-inner p-3 bg-gray-100 focus:outline-none placeholder:text-base rounded ' type="text" name='roll' placeholder="Enter Student's Id or Roll" required />
                         </div>
                         <div>
-                            <input className='admin-input w-full text-xl text-gray-500 shadow-inner p-3 bg-gray-100 focus:outline-none placeholder:text-base rounded ' type="text" name='number' placeholder="Enter Guardians  Number" />
+                            <input className='admin-input w-full text-xl text-gray-500 shadow-inner p-3 bg-gray-100 focus:outline-none placeholder:text-base rounded ' type="text" name='number' placeholder="Enter Guardians  Number" required />
                         </div>
                     </div>
                 </div>

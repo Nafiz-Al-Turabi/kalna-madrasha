@@ -102,6 +102,7 @@ const AddNews = () => {
                             id="fileInput"
                             onChange={handleFileChange}
                             accept='.jpg, .png, .gif'
+                            required
                         />
                         <label
                             htmlFor="fileInput"
@@ -130,6 +131,7 @@ const AddNews = () => {
                             name="title"
                             className="w-full px-4 py-2 text-gray-500 shadow-inner p-3 bg-gray-100 focus:outline-none placeholder:text-base rounded"
                             placeholder="Enter news title"
+                            required
                         />
                     </div>
 
@@ -141,6 +143,7 @@ const AddNews = () => {
                             rows="4"
                             className="w-full px-4 py-2 text-gray-500 shadow-inner p-3 bg-gray-100 focus:outline-none placeholder:text-base rounded resize-none"
                             placeholder="Enter news description"
+                            required
                         ></textarea>
                     </div>
                     <div className="mb-4">
@@ -150,6 +153,7 @@ const AddNews = () => {
                             name="date"
                             className="w-full px-4 py-2 text-gray-500 shadow-inner p-3 bg-gray-100 focus:outline-none placeholder:text-base rounded"
                             placeholder="Enter news date"
+                            required
                         />
                     </div>
                     <button

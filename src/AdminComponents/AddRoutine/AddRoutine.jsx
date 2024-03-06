@@ -97,6 +97,7 @@ const AddRoutine = () => {
                             name="title"
                             className="w-full px-4 py-2 text-gray-500 shadow-inner p-3 bg-gray-100 focus:outline-none placeholder:text-base rounded"
                             placeholder="Enter routine title"
+                            required
                         />
                     </div>
                     <div className="relative border-dashed border-2 border-gray-300 bg-gray-50 rounded-md p-6 group mb-5">
@@ -108,6 +109,7 @@ const AddRoutine = () => {
                             id="fileInput"
                             onChange={handleFileChange}
                             accept='.pdf'
+                            required
                         />
                         <label
                             htmlFor="fileInput"
@@ -136,6 +138,7 @@ const AddRoutine = () => {
                             name="date"
                             className="w-full px-4 py-2 text-gray-500 shadow-inner p-3 bg-gray-100 focus:outline-none placeholder:text-base rounded"
                             placeholder="Enter date"
+                            required
                         />
                     </div>
                     <button

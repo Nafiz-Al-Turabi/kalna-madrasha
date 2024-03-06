@@ -107,6 +107,8 @@ const AddTeacher = () => {
                             className="hidden"
                             id="fileInput"
                             onChange={handleFileChange}
+                            required
+                            accept='.jpg,.png,.gif,.jpeg,.web'
                         />
                         <label
                             htmlFor="fileInput"
@@ -130,16 +132,16 @@ const AddTeacher = () => {
                     </div>
                     <div className='space-y-4'>
                         <div>
-                            <input className='admin-input w-full text-xl text-gray-500 shadow-inner p-3 bg-gray-100 focus:outline-none placeholder:text-base rounded ' type="text" name='name' placeholder="Enter Teacher's Name" />
+                            <input className='admin-input w-full text-xl text-gray-500 shadow-inner p-3 bg-gray-100 focus:outline-none placeholder:text-base rounded ' type="text" name='name' placeholder="Enter Teacher's Name" required />
                         </div>
                         <div>
-                            <input className='admin-input w-full text-xl text-gray-500 shadow-inner p-3 bg-gray-100 focus:outline-none placeholder:text-base rounded ' type="text" name='designation' placeholder="Enter Teacher's Designation" />
+                            <input className='admin-input w-full text-xl text-gray-500 shadow-inner p-3 bg-gray-100 focus:outline-none placeholder:text-base rounded ' type="text" name='designation' placeholder="Enter Teacher's Designation" required />
                         </div>
                         <div>
-                            <input className='admin-input w-full text-xl text-gray-500 shadow-inner p-3 bg-gray-100 focus:outline-none placeholder:text-base rounded ' type="text" name='email' placeholder="Enter Teacher's Email" />
+                            <input className='admin-input w-full text-xl text-gray-500 shadow-inner p-3 bg-gray-100 focus:outline-none placeholder:text-base rounded ' type="text" name='email' placeholder="Enter Teacher's Email" required />
                         </div>
                         <div>
-                            <input className='admin-input w-full text-xl text-gray-500 shadow-inner p-3 bg-gray-100 focus:outline-none placeholder:text-base rounded ' type="text" name='number' placeholder="Enter Teacher's Number" />
+                            <input className='admin-input w-full text-xl text-gray-500 shadow-inner p-3 bg-gray-100 focus:outline-none placeholder:text-base rounded ' type="text" name='number' placeholder="Enter Teacher's Number" required />
                         </div>
                     </div>
                 </div>

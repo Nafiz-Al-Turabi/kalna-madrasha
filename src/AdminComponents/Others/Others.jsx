@@ -299,6 +299,7 @@ const Others = () => {
                             rows="10"
                             className="w-full px-4 py-2 text-gray-500 shadow-inner p-3 bg-gray-100 focus:outline-none placeholder:text-base rounded resize-none"
                             placeholder="Enter Headline Here..."
+                            required
                         ></textarea>
                     </div>
 
@@ -319,6 +320,8 @@ const Others = () => {
                             className="hidden"
                             id="fileInput2"
                             onChange={handleFileChangeEbookImage}
+                            required
+                            accept='.jpg,.png, .gif, .jpeg'
                         />
                         <label
                             htmlFor="fileInput2"
@@ -353,6 +356,7 @@ const Others = () => {
                             onChange={handleFileChangeEbookPdf}
                             required
                             className="w-full px-4 py-2 text-gray-500 shadow-inner p-3 bg-gray-100 focus:outline-none placeholder:text-base rounded"
+                            
                         />
                     </div>
                     <div className="mb-4">
@@ -362,6 +366,7 @@ const Others = () => {
                             name="book_name"
                             className="w-full px-4 py-2 text-gray-500 shadow-inner p-3 bg-gray-100 focus:outline-none placeholder:text-base rounded"
                             placeholder="Enter Ebook title"
+                            required
                         />
                     </div>
                     <button
@@ -396,6 +401,7 @@ const Others = () => {
                             name="syllabus_name"
                             className="w-full px-4 py-2 text-gray-500 shadow-inner p-3 bg-gray-100 focus:outline-none placeholder:text-base rounded"
                             placeholder="Enter syllabus title"
+                            required
                         />
                     </div>
                     <button
@@ -416,6 +422,7 @@ const Others = () => {
                             id="fileInputLillah"
                             onChange={handleFileChangeLillah}
                             accept='.jpg, .png, gif'
+                            required
                         />
                         <label
                             htmlFor="fileInputLillah"
@@ -455,6 +462,7 @@ const Others = () => {
                             id="fileInput"
                             onChange={handleFileChangeCampus}
                             accept='.jpg, .png, gif'
+                            required
                         />
                         <label
                             htmlFor="fileInput"
@@ -485,9 +493,7 @@ const Others = () => {
                 </form>
             </div>
             <div>
-                <div className='bg-gray-800 my-5 p-5 text-white'>
-                    <h1 className='text-3xl font-bold uppercase '>Added campus image:</h1>
-                </div>
+                
                 <div className='grid grid-cols-3 gap-5 '>
                     <div className='col-span-3'>
                         <div className='bg-gray-800 mt-5 p-5 text-white rounded-t-md'>
