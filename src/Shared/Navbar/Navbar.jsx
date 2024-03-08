@@ -177,7 +177,7 @@ const Navbar = () => {
                             <Link onClick={() => toggleDropdown('')} to="/principalSpeech" className="block px-4 py-2 hover:text-gray-300">
                                 অধ্যক্ষের বাণী
                             </Link>
-                            <Link onClick={() => toggleDropdown('')} to="/" className="block px-4 py-2 hover:text-gray-300">
+                            <Link onClick={() => toggleDropdown('')} to="/lillahBoarding" className="block px-4 py-2 hover:text-gray-300">
                                 কমপ্লেক্স
                             </Link>
                         </div>
@@ -280,7 +280,7 @@ const Navbar = () => {
                             <Link onClick={toggleMenu} to="/principalSpeech" className="block text-xl my-5 mx-3  px-4 py-2 hover:text-gray-300">
                                 অধ্যক্ষের বাণী
                             </Link>
-                            <Link onClick={toggleMenu} to="/" className="block text-xl my-5 mx-3  px-4 py-2 hover:text-gray-300">
+                            <Link onClick={toggleMenu} to="/lillahBoarding" className="block text-xl my-5 mx-3  px-4 py-2 hover:text-gray-300">
                                 কমপ্লেক্স
                             </Link>
                         </div>
